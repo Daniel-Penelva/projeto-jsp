@@ -4,10 +4,17 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Projeto JSP</title>
+<title>Receber Nome</title>
 </head>
 <body>
-	<h1>Bem vindo ao Projeto JSP!</h1>
+
+	<%
+	String nome = request.getParameter("nome");
+	out.print(nome);
+
+	String idade = request.getParameter("idade");
+	out.print(idade);
+	%>
 
 </body>
 </html>
