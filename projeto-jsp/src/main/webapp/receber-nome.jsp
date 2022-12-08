@@ -15,15 +15,7 @@
 	
 	String idade = request.getParameter("idade");
 	out.println("Idade: " + idade);
-	
-	/*Outra forma de saída*/
-	String sobrenome = request.getParameter("sobrenome");
-	
-	PrintWriter saida = response.getWriter();
-	saida.println("Sobrenome: " + sobrenome);
 	%>
 	
-	
-
 </body>
 </html>

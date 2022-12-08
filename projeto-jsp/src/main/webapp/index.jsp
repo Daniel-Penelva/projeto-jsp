@@ -9,12 +9,11 @@
 <body>
 	<h1>Bem vindo ao Projeto JSP!</h1>
 
-	<form action="receber-nome.jsp">
+	<form action="ServletLogin" method="post">
 
 		Nome: <input name="nome"> 
 		Idade: <input name="idade">
-		Sobrenome: <input name="sobrenome">
-		
+
 		<input type="submit" value="enviar">
 
 

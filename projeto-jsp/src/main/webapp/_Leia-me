@@ -1,0 +1,133 @@
+JavaServer Pages (JSP) - Não é um framework
+JSP é acrônimo para JavaServer Pages, uma linguagem criada pela SUN gratuita, JSP é uma linguagem
+de script com especificação aberta que tem como objetivo primário a geração de conteúdo dinâmico 
+para páginas de internet.
+
+Link projeto:
+localhost:8080/projeto-jsp
+ou
+localhost:8080/projeto-jsp/index.jsp
+
+------------------------------------------------
+
+Os parametros são passados pela url, por exemplo:
+
+ localhost:8080/projeto-jsp/receber-nome.jsp?<parametro>=<valor_parametro>
+ 
+ localhost:8080/projeto-jsp/receber-nome.jsp?nome=Daniel 
+ 
+ O que tiver depois do ponto de interrogação (?) é o recurso que estamos chamando e o “&” 
+ comercial é para separar os parametros, ou seja, por exemplo:
+ 
+ localhost:8080/projeto-jsp/receber-nome.jsp?nome=Daniel&idade=34
+ 
+ Para acessar e resgatar o request, para capturar esse comando vai ser preciso usar um 
+ delimitador "<%  %>" que tem a função de separar o html e o java. Por padrão dentro desses 
+ delimitadores já conseguem acessar o request, o response e entre outros (ctrl + espaço).
+ 
+ Codigo: 
+ 
+ <% request.getParameter("nome"); %>
+ OBS. get = capturar; parameter = capturar
+ 
+Método Get
+Esse método passa as informações na url, mostrando os dados da página. A palavra "get" quer 
+dizer capturar o parametro. 
+ 
+Método Post
+É para transferência de dados para o servidor. Esse método não passa as informações na url, as
+informações da página ficam ocultas. A palavra "post" quer dizer postar. 
+
+------------------------------------------
+
+Sobre Servlet
+
+Servlet é uma classe Java que estende a classe HttpServlet, ela fica responsável por ampliar 
+a capacidade dos servidores que permitem acesso a aplicações por meio do modo request e 
+response. Quando o cliente (browser) executa uma request, ela é passada para um servlet que 
+vai interpretar e enviar para o servidor web, sendo assim, o servidor envia uma response para
+o servlet, que irá convertê-la em HTML e logo após desse processo, o servlet irá devolvê-la
+para o determinado serviço web.
+
+Servlet tem como função:
+. Receber os dados;
+. Processa;
+. Grava, salva, edita, consulta;
+. Gera relatório;
+. Efetua a resposta para a tela.
+
+Servlet é um objeto especial java programado para receber dois objetos, que são eles: 
+
+. httpServletRequest - Request (Requisição - Pedido - Envio de Tela) 
+
+. httpServletResponse - Response (Retorno - Resposta do servidor)
+
+Esses dois objetos vão ser gerados e montados pelo Tomcat. 
+Quando uma requisição Http é enviada, ela passa pelo servidor Tomcat e esses dados Http tem 
+que ser inseridos no Servlet, e dentro dele vai ser capturado e controlado, ou seja, o que 
+vai ser decidido dele, portanto, ele controla (controller). 
+E sempre que quiser dar uma resposta coloca dentro do objeto java HttpServletResponse. 
+Portanto, o servlet vai controlar a requisição e a resposta do browser. 
+
+Arquitetura de Servlet
+
+HttpServlet: Esta classe possui basicamente 6 métodos que são chamados automaticamente de 
+acordo com os métodos HTTP, que são requisitados.
+Exemplo:
+Se a request de seu browser for feita pelo método GET, no seu servlet deverá ser chamado o método doGet(). 
+Basicamente irá trabalhar com dois métodos: o get e o post. Os 6 métodos são: 
+
+. doPost(); = usada para transferir informações de forma oculta. 
+. doGet(); = usado mais para consultas que não envolva informações sigilosas.
+. doPut(); = usada para editar (ou atualizar) o registro.
+. doDelete(); = usado para deletar as informações do registro.
+. doOption(); 
+. doTravel()
+
+HttpServletRequest: É uma interface. O browser faz um request ao servidor para obter informações importantes, 
+como referências e cookies, elas são tratadas utilizando métodos desta interface, podendo 
+recuperar cabeçalho e parâmetros passados pelo servidor. Os principais métodos utilizados para 
+usar os recursos da interface são:
+
+. getHeaderName(); = pega todos os nomes do cabeçalho;
+. getHeader(); = pega todos os valores do cabeçalho;
+. getQueryString(); = pega a query String completa;
+. getParameterNames(); = pega todos os names parâmetros passados;
+. getParameterValues(); = recuperação de parâmetros de multiplos valores;
+. getParameter(); = Recuperação de parâmetros de acordo com o nome passado.
+
+HttpServletResponse: É uma interface, que oferece vários métodos específicos de protocolo. 
+Sempre você precisará especificar a saída para o seu browser, utilizando os métodos:
+
+. setContentType(); =  neste devemos especificar o tipo de conteúdo que irá responder.
+. getWriter(); = server para imprimir na tela.
+
+--------------------------------------------------
+Erros
+
+Erro 404 - Pode ser inúmeras coisas, esse erro é o terror dos programadores. Pode ser erro 
+de projeto, erro de mapeamento (erros nas palavras), erro no banco de dados, de retorno, de programação, etc...
+
+Passos para identificar o erro:
+
+1º Olhar no console para vê se tem algum erro de java.
+
+2º Acessar a página que inicia o erro e através dessa página confere para onde está fazendo a requisição. 
+E a partir dali verificar se está com erro de mapeamento, podendo ter errado uma letra ou ter
+colocado uma letra maiuscula sendo ela minuscula, ou uma barra e etc...
+
+3º Redirecionar para uma página que não existe, verificar a extensão da página se está 
+corretamente escrita.
+
+4º As validações nos casos de condicionamentos, ou seja, verificar os if e else, etc...
+
+
+
+ 
+
+
+
+
+
+
+
