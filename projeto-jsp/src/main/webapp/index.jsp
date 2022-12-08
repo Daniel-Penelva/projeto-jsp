@@ -10,14 +10,25 @@
 	<h1>Bem vindo ao Projeto JSP!</h1>
 
 	<form action="ServletLogin" method="post">
-
-		Nome: <input name="nome"> 
-		Idade: <input name="idade">
-
-		<input type="submit" value="enviar">
-
-
+	
+		<table>
+			<tr>
+				<td><label>Login:</label></td>
+				<td><input name="login" type="text"></td>
+			</tr>
+			<tr>
+				<td><label>Senha:</label></td>
+				<td><input name="senha" type="password"></td>
+			</tr>
+			<tr>
+				<td/>
+				<td><input type="submit" value="enviar"></td>
+			</tr>
+		</table>
 	</form>
+	
+	<!-- Redirecionamento do RequestDispatcher -->
+	<h4>${msg}</h4>
 
 </body>
 </html>

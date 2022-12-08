@@ -121,6 +121,17 @@ corretamente escrita.
 
 4º As validações nos casos de condicionamentos, ou seja, verificar os if e else, etc...
 
+------------------------------------------
+Para didatica
+
+O pacote filter é para casos como interceptar as requisições e dar as respostas, ou seja, os 
+dados irão passar por esses filtro podendo ter algumas rotinas centralizadas, por exemplo, 
+abrir sessão, abrir conexão, dar commit, dar rollback ou fazer um redirecionamento. 
+Portanto, o mais comum é obrigar o filtro a identificar se o usuário está logado ou não, logo
+irá disparar na tela de login para avisar ao usuario que ele precisa se logar. 
+
+
+
 
 
  
