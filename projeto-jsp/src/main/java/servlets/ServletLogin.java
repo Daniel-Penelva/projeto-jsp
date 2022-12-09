@@ -34,6 +34,10 @@ public class ServletLogin extends HttpServlet {
 		/* Captura os valores da tela */
 		String login = request.getParameter("login");
 		String senha = request.getParameter("senha");
+		
+		/* A url vai ser chamada para acessar e logar o usuario 
+		 * Lembrando que é uma url dinamica e vai ser passada no RequestDispatcher*/
+		String url = request.getParameter("url");
 
 		/* Verificar se os valores login e senha foram preenchidos e validados */
 		if (login != null && !login.isEmpty() && senha != null && !senha.isEmpty()) {
@@ -47,13 +51,19 @@ public class ServletLogin extends HttpServlet {
 			if (modelLogin.getLogin().equalsIgnoreCase("admin") 
 					&& modelLogin.getSenha().equalsIgnoreCase("admin")) {
 				
-				/* Atributo de sessão para manter o usuário logado */
+				/* Atributo de sessão para manter o usuário logado na sessão */
 				request.getSession().setAttribute("usuario", modelLogin.getLogin());
 				
+				/* Validação da url para verificar se ela é nula e se ela for nula é 
+				 * adicionado um valor padrão da página principal que é a página de logado.*/
+				if(url == null || url.equals("null")) {
+					url = "principal/principal.jsp";
+				
 				/* Acessando e redirecionando para a pagina principal */
-				RequestDispatcher redirecionar = request.getRequestDispatcher("principal/principal.jsp");
+				RequestDispatcher redirecionar = request.getRequestDispatcher(url);
 				redirecionar.forward(request, response);
-
+				}
+				
 			} else {
 				/* simulando preenchimento errado de login e senha */
 				RequestDispatcher redirecionar = request.getRequestDispatcher("index.jsp");
