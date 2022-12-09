@@ -63,8 +63,7 @@ public class FilterAutenticacao extends HttpFilter implements Filter {
 		 * Ou seja, valida se está logado senão redireciona para a tela de login. 
 		 * Só podem ser acessados urls relacionado com /principal/ServletLogin
 		 */
-		if (usuarioLogado == null || (usuarioLogado != null && usuarioLogado.isEmpty()) 
-				&& !urlParaAutenticar.contains("/principal/ServletLogin")) {
+		if (usuarioLogado == null && !urlParaAutenticar.equalsIgnoreCase("/principal/ServletLogin")) {
 
 			/* Redirecionamento para a tela de login */
 			RequestDispatcher redireciona = request.getRequestDispatcher("/index.jsp?url=" + urlParaAutenticar);
