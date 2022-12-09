@@ -130,6 +130,13 @@ abrir sessão, abrir conexão, dar commit, dar rollback ou fazer um redirecionam
 Portanto, o mais comum é obrigar o filtro a identificar se o usuário está logado ou não, logo
 irá disparar na tela de login para avisar ao usuario que ele precisa se logar. 
 
+------------------------------------------
+
+Bom saber:
+A conexão só existe uma única vez, ou seja, não se abre e feche conexão a todo momento, 
+isso acarreta uma lentidao extrema ao seu sistema. O que abre e fecha a todo momento sao 
+sessões e transações (operações de consulta, delete, ...).
+
 
 
 
