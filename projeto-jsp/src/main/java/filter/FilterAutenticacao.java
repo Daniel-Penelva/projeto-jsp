@@ -31,7 +31,6 @@ public class FilterAutenticacao extends HttpFilter implements Filter {
 
 	public FilterAutenticacao() {
 		super();
-
 	}
 
 	/*
