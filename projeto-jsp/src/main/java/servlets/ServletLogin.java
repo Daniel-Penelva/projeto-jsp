@@ -88,6 +88,10 @@ public class ServletLogin extends HttpServlet {
 			
 		}catch (Exception e) {
 			e.printStackTrace();
+			/* Redireciona para a tela de erro */
+			RequestDispatcher redirecionar = request.getRequestDispatcher("erro.jsp");
+			request.setAttribute("msg", e.getMessage());
+			redirecionar.forward(request, response);
 		}
 	}
 
