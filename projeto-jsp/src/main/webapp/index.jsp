@@ -31,9 +31,11 @@ left: 33%;
 
 h5.msg{
 position: absolute;
-top:70%;
+top:10%;
 left: 33%;
-color:red;
+color: #842029;
+background-color: #f8d7da;
+border-color: #f5c2c7;
 }
 
 </style>
@@ -47,7 +49,7 @@ color:red;
 	<form action="ServletLogin" method="post" class="row g-3 needs-validation" novalidate>
 	<input type="hidden" value="<%=request.getParameter("url")%>" name="url"> 
 	
-	<div class="col-md-6">
+	<div class="mb-3">
 	<label class="form-label">Login:</label>
 	<input class="form-control" name="login" type="text" required="required">
 	<div class="invalid-feedback">
@@ -55,7 +57,7 @@ color:red;
     </div>
 	</div>
 	
-	<div class="col-md-6">
+	<div class="mb-3">
 	<label class="form-label">Senha:</label>
 	<input class="form-control" name="senha" type="password" required="required">
 	<div class="invalid-feedback">
@@ -68,10 +70,10 @@ color:red;
 	</div>
 
 	</form>
-
-	<!-- Redirecionamento do RequestDispatcher -->
+	
+    <!-- Redirecionamento do RequestDispatcher -->
 	<h5 class="msg">${msg}</h5>
-
+     
 	<!-- Opção 1: Pacote Bootstrap com Popper para javascript -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
