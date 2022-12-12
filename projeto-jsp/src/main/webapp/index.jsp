@@ -44,17 +44,23 @@ color:red;
 	
 	<!-- São as classes do bootstrap que gera os layouts para o formulário. -->
 
-	<form action="ServletLogin" method="post" class="row g-3">
+	<form action="ServletLogin" method="post" class="row g-3 needs-validation" novalidate>
 	<input type="hidden" value="<%=request.getParameter("url")%>" name="url"> 
 	
 	<div class="col-md-6">
 	<label class="form-label">Login:</label>
-	<input class="form-control" name="login" type="text">
+	<input class="form-control" name="login" type="text" required="required">
+	<div class="invalid-feedback">
+      Informe Login
+    </div>
 	</div>
 	
 	<div class="col-md-6">
 	<label class="form-label">Senha:</label>
-	<input class="form-control" name="senha" type="password"> 
+	<input class="form-control" name="senha" type="password" required="required">
+	<div class="invalid-feedback">
+      Informe Senha
+    </div> 
 	</div>
 	
 	<div class="col-12">
@@ -70,7 +76,32 @@ color:red;
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-		crossorigin="anonymous"></script>
+		crossorigin="anonymous"> </script>
+		
+<script type="text/javascript">
+
+//Exemplo de JavaScript inicial para desabilitar envios de formulário se houver campos inválidos
+(function () {
+  'use strict'
+
+  // Busca todos os formulários aos quais queremos aplicar estilos personalizados de validação de Bootstrap
+  var forms = document.querySelectorAll('.needs-validation')
+
+  // Faz um loop sobre eles e evita submissão
+  Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+
+        form.classList.add('was-validated')
+      }, false)
+    })
+})()
+
+</script>
 
 </body>
 </html>

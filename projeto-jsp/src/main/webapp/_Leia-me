@@ -142,6 +142,17 @@ sessões e transações (operações de consulta, delete, ...).
 Site Bootstrap (para pesquisas sobre suas propriedades e valores)
 https://getbootstrap.com/docs/5.0/getting-started/introduction/
 
+------------------------------------------
+
+Não existe validação para o caso em que os campos estejam vazios. Logo vai ser feito uma 
+validação para que NÃO precise fazer requisição ao servidor para processar o formulário, uma
+vez que o usuário não informou nenhum campo do formulário.
+Ou seja, essa validação é para não precisar pedir uma requisição de processamento para enviar
+o formúlario. Portanto, o objetivo é fazer uma validação diretamente pelo formulário.
+
+Vou usar as funcionalidades do bootstrap 5 que já tem validações já implementadas para 
+formulário.
+Site: https://getbootstrap.com/docs/5.0/forms/validation/
 
 
  
