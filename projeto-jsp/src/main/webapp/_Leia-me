@@ -137,7 +137,10 @@ A conexão só existe uma única vez, ou seja, não se abre e feche conexão a t
 isso acarreta uma lentidao extrema ao seu sistema. O que abre e fecha a todo momento sao 
 sessões e transações (operações de consulta, delete, ...).
 
+------------------------------------------
 
+Site Bootstrap (para pesquisas sobre suas propriedades e valores)
+https://getbootstrap.com/docs/5.0/getting-started/introduction/
 
 
 
