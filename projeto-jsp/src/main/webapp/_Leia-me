@@ -154,6 +154,11 @@ Vou usar as funcionalidades do bootstrap 5 que já tem validações já implemen
 formulário.
 Site: https://getbootstrap.com/docs/5.0/forms/validation/
 
+-------------------------------------------
+Para fazer o logout. Ele vai sempre fazer um redirecionamento para do doGet. Portanto, tem que 
+pegar a ServletLogin e passar uma ação para ela.
+
+Ação = "/servletLogin?acao=logout"
 
  
 
