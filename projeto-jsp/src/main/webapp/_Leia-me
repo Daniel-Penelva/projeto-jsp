@@ -160,7 +160,15 @@ pegar a ServletLogin e passar uma ação para ela.
 
 Ação = "/servletLogin?acao=logout"
 
- 
+-------------------------------------------
+Para carregar na tela o usuário logado vou ter que recuperar o usuário setado no ServletLogin.
+Ou seja, no caso esse "request.getSession().setAttribute("usuario", modelLogin.getLogin());"
+
+Bom saber - outra forma de pegar oa sessao de requisicao do atributo do usuário:
+<%= request.getSession().getAttribute("usuario") %>
+
+Ou pode pegar a sessao diretamente:
+<%= session.getAttribute("usuario") %>
 
 
 
