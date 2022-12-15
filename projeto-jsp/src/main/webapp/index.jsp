@@ -46,7 +46,7 @@ border-color: #f5c2c7;
 	
 	<!-- São as classes do bootstrap que gera os layouts para o formulário. -->
 
-	<form action="ServletLogin" method="post" class="row g-3 needs-validation" novalidate>
+	<form action="<%=request.getContextPath() %>/ServletLogin" method="post" class="row g-3 needs-validation" novalidate>
 	<input type="hidden" value="<%=request.getParameter("url")%>" name="url"> 
 	
 	<div class="mb-3">

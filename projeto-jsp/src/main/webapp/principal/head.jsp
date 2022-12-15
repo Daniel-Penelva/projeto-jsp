@@ -16,7 +16,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="description" content="Projeto feito em JSP" />
 <meta name="author" content="Daniel Penelva de Andrade" />
-<!-- Para escrever o contexto do porjeto, ou seja, projeto-jsp -->
+
+<!-- Para escrever o contexto do projeto para o funcionamento do CSS, ou seja, "projeto-jsp/assets/images/favicon.ico" -->
 <link rel="icon" href="<%= request.getContextPath() %>/assets/images/favicon.ico" type="image/x-icon">
 <!-- Google font-->
 <link href="https://fonts.googleapis.com/css?family=Roboto:400,500"

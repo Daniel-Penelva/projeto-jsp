@@ -35,10 +35,44 @@
 								<div class="page-wrapper">
 									<!-- Page-body start -->
 									<div class="page-body">
-										<div class="row">
-											<h1>Cadastro de Usuário</h1>
 
+										<div class="row">
+											<div class="col-sm-12">
+												<!-- Basic Form Inputs card start -->
+												<div class="card">
+													<div class="card-block">
+														<h4 class="sub-title">Cadastro de Usuário</h4>
+														<form class="form-material">
+															<div class="form-group form-default">
+																<input type="text" name="footer-email"
+																	class="form-control" required=""> <span
+																	class="form-bar"></span> <label class="float-label">ID:</label>
+															</div>
+															<div class="form-group form-default">
+																<input type="text" name="footer-email"
+																	class="form-control" required=""> <span
+																	class="form-bar"></span> <label class="float-label">Nome:</label>
+															</div>
+															<div class="form-group form-default">
+																<input type="text" name="footer-email"
+																	class="form-control" required=""> <span
+																	class="form-bar"></span> <label class="float-label">E-mail
+																	(exa@gmail.com)</label>
+															</div>
+															<div class="form-group form-default">
+																<input type="password" name="footer-email"
+																	class="form-control" required=""> <span
+																	class="form-bar"></span> <label class="float-label">Password:</label>
+															</div>
+															
+															<button class="btn waves-effect waves-light hor-grd btn-grd-primary ">Cadastrar</button>
+														</form>
+
+													</div>
+												</div>
+											</div>
 										</div>
+
 									</div>
 									<!-- Page-body end -->
 								</div>
