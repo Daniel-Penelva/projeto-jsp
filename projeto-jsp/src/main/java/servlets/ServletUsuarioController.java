@@ -49,7 +49,7 @@ public class ServletUsuarioController extends HttpServlet {
 			modelLogin.setSenha(senha);
 
 			//Gravar no banco de dados o usuario 
-			daoUsuarioRepository.gravarUsuario(modelLogin);
+			modelLogin = daoUsuarioRepository.gravarUsuario(modelLogin);
 			
 			//Mensagem para ser inserida na tela 
 			request.setAttribute("msg", "Usuário gravado no banco de dados com sucesso!");
