@@ -170,6 +170,24 @@ Bom saber - outra forma de pegar oa sessao de requisicao do atributo do usuário
 Ou pode pegar a sessao diretamente:
 <%= session.getAttribute("usuario") %>
 
+-------------------------------------------
+
+Sempre que for reaproveitar um formulario, é bom renomear os atributos "name" e 
+"id" dos campos de entrada, no caso igual os atributos da entidade modelo que 
+representa o banco de dados.
+
+Bom saber:
+required="required" --> para campo obrigatorio.
+
+readonly="readonly" --> desabilitar o campo.
+
+autocomplete="off" --> não preencher o campo automaticamente.  
+
+Próximo passo é fazer a action e o method do form para o controller. Vai ser criado a action, 
+o method e o controller.
+
+Próximo passo é interceptar os parâmetros (nome, email e senha) do formulário.
+
 
 
 
