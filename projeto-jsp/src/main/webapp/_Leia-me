@@ -193,6 +193,12 @@ Próximo passo é interceptar os parâmetros (nome, email e senha) do formulári
  setAttribute("valor_atributo",objeto). 
  Para mostrar esse valor usa-se o atributo "value" no formulário. 
  Ex: < value = ${valor_atributo.nome}>
+ 
+ ou para exibir mensagem na tela para informação - ex:
+ request.setAttribute("msg", "Usuário gravado no banco de dados com sucesso!");
+ 
+ na tela:
+ <span>${msg}</span>
 
 
 

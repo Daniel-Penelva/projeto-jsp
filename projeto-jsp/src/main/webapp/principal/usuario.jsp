@@ -77,6 +77,9 @@
 												</div>
 											</div>
 										</div>
+										
+										<!-- Informando usuário cadastrado -->
+										<span>${msg}</span>
 
 									</div>
 									<!-- Page-body end -->
