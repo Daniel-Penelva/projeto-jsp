@@ -188,6 +188,12 @@ o method e o controller.
 
 Próximo passo é interceptar os parâmetros (nome, email e senha) do formulário.
 
+-------------------------------------------
+ Para recuperar os valores dos campos e mostrar na tela, usa-se o comando 
+ setAttribute("valor_atributo",objeto). 
+ Para mostrar esse valor usa-se o atributo "value" no formulário. 
+ Ex: < value = ${valor_atributo.nome}>
+
 
 
 

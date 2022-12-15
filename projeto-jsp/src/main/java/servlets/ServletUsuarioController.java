@@ -41,11 +41,11 @@ public class ServletUsuarioController extends HttpServlet {
 		modelLogin.setLogin(login);
 		modelLogin.setSenha(senha);
 		
-		// Redirecionar para uma página
-		RequestDispatcher redirecionar = request.getRequestDispatcher("principal/usuario.jsp");
-		redirecionar.forward(request, response);
+		//Para recuperar os dados na tela ou para carregar o objeto (os dados) na tela
+		request.setAttribute("modelLogin", modelLogin);
 		
-
+		// Redirecionar para uma página
+		request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
 	}
 
 }
