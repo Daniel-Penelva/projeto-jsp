@@ -18,6 +18,8 @@ public class DaoUsuarioRepository {
 
 	public ModelLogin gravarUsuario(ModelLogin modelLogin) throws SQLException {
 
+		/* Inserir novo usuario */
+		if(modelLogin.isNovo()) {
 		String sql = "INSERT INTO model_login (login, senha, nome, email) VALUES (?, ?, ?, ?)";
 
 		PreparedStatement prepararSql = connection.prepareStatement(sql);
@@ -30,6 +32,19 @@ public class DaoUsuarioRepository {
 		prepararSql.execute();
 
 		connection.commit();
+		
+		}else {
+			String sql = "UPDATE model_login SET login=?, senha=?, nome=?, email=? WHERE id= " + modelLogin.getId();
+			PreparedStatement prepararSql = connection.prepareStatement(sql);
+			
+			prepararSql.setString(1, modelLogin.getLogin());
+			prepararSql.setString(2, modelLogin.getSenha());
+			prepararSql.setString(3, modelLogin.getNome());
+			prepararSql.setString(4, modelLogin.getEmail());
+			
+			prepararSql.executeUpdate();
+			connection.commit();
+		}
 
 		// Terminando de gravar o usuário no banco de dados
 		// Vai ser chamando o método consultar usuario para mostrar os dados na tela
