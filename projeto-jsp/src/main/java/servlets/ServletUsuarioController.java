@@ -32,7 +32,9 @@ public class ServletUsuarioController extends HttpServlet {
 			throws ServletException, IOException {
 
 		try {
-
+	
+			String mensagem = "Usuário gravado no banco de dados com sucesso!";
+			
 			/* Capturando os parametros do formulário */
 			String id = request.getParameter("id");
 			String nome = request.getParameter("nome");
@@ -47,12 +49,17 @@ public class ServletUsuarioController extends HttpServlet {
 			modelLogin.setEmail(email);
 			modelLogin.setLogin(login);
 			modelLogin.setSenha(senha);
-
-			//Gravar no banco de dados o usuario 
-			modelLogin = daoUsuarioRepository.gravarUsuario(modelLogin);
+			
+			// Validações para conferir se já existe login (true) e se é um novo id (que é um usuario novo) 
+			//Se sim (true) então não pode cadastrar.
+			if(daoUsuarioRepository.validarLogin(modelLogin.getLogin()) && modelLogin.getId() == null) {
+				mensagem = "Já existe usuário com o mesmo login, informe outro login.";
+			}else {
+				modelLogin = daoUsuarioRepository.gravarUsuario(modelLogin);
+			}
 			
 			//Mensagem para ser inserida na tela 
-			request.setAttribute("msg", "Usuário gravado no banco de dados com sucesso!");
+			request.setAttribute("msg", mensagem);
 
 			// Para recuperar os dados na tela ou para carregar o objeto (os dados) na tela
 			request.setAttribute("modelLogin", modelLogin);
