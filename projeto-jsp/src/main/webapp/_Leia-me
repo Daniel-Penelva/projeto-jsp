@@ -199,6 +199,14 @@ Próximo passo é interceptar os parâmetros (nome, email e senha) do formulári
  
  na tela:
  <span>${msg}</span>
+ 
+ -------------------------------------------
+ Para delete:
+ Passamos um parametro dentro do form para identificar e fazer um delete. Ele vai ficar oculto (hidden)
+ dentro do formulario.
+ 
+ Vamos fazer enviar pela mesma servlet atraves do método doGet (que é usado para consultar e deletar).
+ OBS. O método doPost é usado para salvar e atualizar.
 
 
 

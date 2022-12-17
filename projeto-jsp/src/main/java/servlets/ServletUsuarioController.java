@@ -15,7 +15,7 @@ import dao.DaoUsuarioRepository;
 public class ServletUsuarioController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	//Criar um objeto dao para chamar o método gravar
+	// Criar um objeto dao para chamar o método gravar
 	private DaoUsuarioRepository daoUsuarioRepository = new DaoUsuarioRepository();
 
 	public ServletUsuarioController() {
@@ -25,6 +25,33 @@ public class ServletUsuarioController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		try {
+			
+			/* Captura o parametro ação para enviar a requisição no ServletUsuarioController */
+			String acao = request.getParameter("acao");
+
+			if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("deletar")) {
+
+				/* captura o parâmetro id do formulário */
+				String idUser = request.getParameter("id");
+
+				/* Chama o método deletar usuário para deletar no banco */
+				daoUsuarioRepository.deletarUsuario(idUser);
+
+				/* Atribui uma mensagem na tela */
+				request.setAttribute("msg", "Excluido com sucesso!");
+			}
+			
+			/* Redireciona para página usuario.jsp */
+			request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			/* Redireciona para a tela de erro */
+			RequestDispatcher redirecionar = request.getRequestDispatcher("erro.jsp");
+			request.setAttribute("msg", e.getMessage());
+			redirecionar.forward(request, response);
+		}
 
 	}
 
@@ -32,9 +59,9 @@ public class ServletUsuarioController extends HttpServlet {
 			throws ServletException, IOException {
 
 		try {
-	
+
 			String mensagem = "Usuário gravado no banco de dados com sucesso!";
-			
+
 			/* Capturando os parametros do formulário */
 			String id = request.getParameter("id");
 			String nome = request.getParameter("nome");
@@ -49,24 +76,24 @@ public class ServletUsuarioController extends HttpServlet {
 			modelLogin.setEmail(email);
 			modelLogin.setLogin(login);
 			modelLogin.setSenha(senha);
-			
-			// Validações para conferir se já existe login (true) e se é um novo id (que é um usuario novo) 
-			//Se sim (true) então não pode cadastrar.
-			if(daoUsuarioRepository.validarLogin(modelLogin.getLogin()) && modelLogin.getId() == null) {
+
+			// Validações para conferir se já existe login (true) e se é um novo id (que é
+			// um usuario novo)
+			// Se sim (true) então não pode cadastrar.
+			if (daoUsuarioRepository.validarLogin(modelLogin.getLogin()) && modelLogin.getId() == null) {
 				mensagem = "Já existe usuário com o mesmo login, informe outro login.";
-			}else {
-				
-				if(modelLogin.isNovo()) {
+			} else {
+
+				if (modelLogin.isNovo()) {
 					mensagem = "Gravado com sucesso!";
-				}else {
+				} else {
 					mensagem = "Atualizado com sucesso!";
 				}
-				
-				
+
 				modelLogin = daoUsuarioRepository.gravarUsuario(modelLogin);
 			}
-			
-			//Mensagem para ser inserida na tela 
+
+			// Mensagem para ser inserida na tela
 			request.setAttribute("msg", mensagem);
 
 			// Para recuperar os dados na tela ou para carregar o objeto (os dados) na tela
@@ -74,7 +101,7 @@ public class ServletUsuarioController extends HttpServlet {
 
 			// Redirecionar para uma página
 			request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			/* Redireciona para a tela de erro */

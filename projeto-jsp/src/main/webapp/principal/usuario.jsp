@@ -42,42 +42,63 @@
 												<div class="card">
 													<div class="card-block">
 														<h4 class="sub-title">Cadastro de Usuário</h4>
-														<form class="form-material" action="<%= request.getContextPath() %>/ServletUsuarioController" method="post" id="formUser">
+														<form class="form-material"
+															action="<%=request.getContextPath()%>/ServletUsuarioController"
+															method="post" id="formUser">
+
+															<input type="hidden" name="acao" id="acao" value="">
+
 															<div class="form-group form-default form-static-label">
-																<input type="text" name="id" id="id" class="form-control" readonly="readonly" value="${modelLogin.id}"> 
-																<span class="form-bar"></span> <label class="float-label">ID:</label>
+																<input type="text" name="id" id="id"
+																	class="form-control" readonly="readonly"
+																	value="${modelLogin.id}"> <span
+																	class="form-bar"></span> <label class="float-label">ID:</label>
 															</div>
 															<div class="form-group form-default form-static-label">
-																<input type="text" name="nome" id="nome" class="form-control" required="required" value="${modelLogin.nome}"> 
-																<span class="form-bar"></span> 
-																<label class="float-label">Nome:</label>
+																<input type="text" name="nome" id="nome"
+																	class="form-control" required="required"
+																	value="${modelLogin.nome}"> <span
+																	class="form-bar"></span> <label class="float-label">Nome:</label>
 															</div>
 															<div class="form-group form-default form-static-label">
-																<input type="email" name="email" id="email" class="form-control" required="required" autocomplete="off" value="${modelLogin.email}"> 
-																<span class="form-bar"></span> 
-																<label class="float-label">E-mail:</label>
+																<input type="email" name="email" id="email"
+																	class="form-control" required="required"
+																	autocomplete="off" value="${modelLogin.email}">
+																<span class="form-bar"></span> <label
+																	class="float-label">E-mail:</label>
 															</div>
 															<div class="form-group form-default form-static-label">
-																<input type="text" name="login" id="login" class="form-control" required="required" autocomplete="off" value="${modelLogin.login}"> 
-																<span class="form-bar"></span> 
-																<label class="float-label">Login:</label>
+																<input type="text" name="login" id="login"
+																	class="form-control" required="required"
+																	autocomplete="off" value="${modelLogin.login}">
+																<span class="form-bar"></span> <label
+																	class="float-label">Login:</label>
 															</div>
 															<div class="form-group form-default form-static-label">
-																<input type="password" name="senha" id="senha" class="form-control" required="required" autocomplete="off" value="${modelLogin.senha}"> 
-																<span class="form-bar"></span> 
-																<label class="float-label">Senha:</label>
+																<input type="password" name="senha" id="senha"
+																	class="form-control" required="required"
+																	autocomplete="off" value="${modelLogin.senha}">
+																<span class="form-bar"></span> <label
+																	class="float-label">Senha:</label>
 															</div>
+
+															<button type="button"
+																class="btn waves-effect waves-light hor-grd btn-grd-primary"
+																onclick="limparForm();">Novo</button>
+																
+															<button
+																class="btn waves-effect waves-light hor-grd btn-grd-success">Salvar</button>
 															
-															<button class="btn waves-effect waves-light hor-grd btn-grd-primary" onclick="limparForm();">Novo</button>
-															<button class="btn waves-effect waves-light hor-grd btn-grd-success">Salvar</button>
-															<button class="btn waves-effect waves-light hor-grd btn-grd-danger ">Excluir</button>
+															<button type="button"
+																class="btn waves-effect waves-light hor-grd btn-grd-danger"
+																onclick="criarDelete();">Excluir</button>
 														</form>
 
 													</div>
 												</div>
 											</div>
 										</div>
-										
+
 										<!-- Informando usuário cadastrado -->
 										<span>${msg}</span>
 
@@ -95,8 +116,14 @@
 
 	<!-- Required Jquery -->
 	<jsp:include page="javascriptfile.jsp"></jsp:include>
-	
+
 <script type="text/javascript">
+
+function criarDelete() {
+		document.getElementById("formUser").method = 'get';
+		document.getElementById("acao").value = 'deletar';
+		document.getElementById("formUser").submit();
+	}
 
 function limparForm() {
 	var elementos = document.getElementById("formUser").elements; /* Retorn os elementos html dentro do form*/
@@ -106,7 +133,6 @@ function limparForm() {
 	}
 	
 }
-
 
 </script>
 </body>

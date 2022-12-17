@@ -100,5 +100,15 @@ public class DaoUsuarioRepository {
 		  
 		 */
 	}
+	
+	public void deletarUsuario(String idUser) throws Exception{
+		String sql = "DELETE FROM model_login WHERE id = ?";
+		
+		PreparedStatement prepararSql = connection.prepareStatement(sql);
+		prepararSql.setLong(1, Long.parseLong(idUser));
+		
+		prepararSql.executeUpdate();
+		connection.commit();	
+	}
 
 }
