@@ -92,6 +92,11 @@
 															<button type="button"
 																class="btn waves-effect waves-light hor-grd btn-grd-danger"
 																onclick="criarDeleteComAjax();">Excluir</button>
+
+															<button type="button" class="btn btn-warning"
+																data-toggle="modal" data-target="#exampleModalUsuario">
+																Pesquisar</button>
+
 														</form>
 
 													</div>
@@ -117,29 +122,53 @@
 	<!-- Required Jquery -->
 	<jsp:include page="javascriptfile.jsp"></jsp:include>
 
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModalUsuario" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Pesquisa de Usuário</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+				
+				
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<script type="text/javascript">
-	
 		function criarDeleteComAjax() {
-			if(confirm('Deseja realmente excluir o usuário')){
+			if (confirm('Deseja realmente excluir o usuário')) {
 				/* Capturar do action do formulário */
 				var urlAction = document.getElementById('formUser').action;
-				
+
 				/* Captura o campo id do usuario */
 				var idUser = document.getElementById('id').value;
-				
+
 				$.ajax({
-					
-					method: "get", 
-					url: urlAction,
-					data: "id=" + idUser + "&acao=deletarajax",
-					success: function(response){
+
+					method : "get",
+					url : urlAction,
+					data : "id=" + idUser + "&acao=deletarajax",
+					success : function(response) {
 						limparForm();
 						documentElementById('msg').textContent = response;
 					}
-					
-				}).fail(function(xhr, status, errorThrown){
-					alert('Erro ao deletar usuário por id: ' + xhr.responseText);
-				});
+
+				}).fail(
+						function(xhr, status, errorThrown) {
+							alert('Erro ao deletar usuário por id: '
+									+ xhr.responseText);
+						});
 			}
 		}
 
