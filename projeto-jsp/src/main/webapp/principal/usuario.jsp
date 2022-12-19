@@ -85,10 +85,10 @@
 															<button type="button"
 																class="btn waves-effect waves-light hor-grd btn-grd-primary"
 																onclick="limparForm();">Novo</button>
-																
+
 															<button
 																class="btn waves-effect waves-light hor-grd btn-grd-success">Salvar</button>
-															
+
 															<button type="button"
 																class="btn waves-effect waves-light hor-grd btn-grd-danger"
 																onclick="criarDelete();">Excluir</button>
@@ -117,24 +117,25 @@
 	<!-- Required Jquery -->
 	<jsp:include page="javascriptfile.jsp"></jsp:include>
 
-<script type="text/javascript">
+	<script type="text/javascript">
+		function criarDelete() {
 
-function criarDelete() {
-		document.getElementById("formUser").method = 'get';
-		document.getElementById("acao").value = 'deletar';
-		document.getElementById("formUser").submit();
-	}
+			if (confirm('Deseja realmente excluir o usuário?')){
+				document.getElementById("formUser").method = 'get';
+				document.getElementById("acao").value = 'deletar';
+				document.getElementById("formUser").submit();
+			} 
+		}
 
-function limparForm() {
-	var elementos = document.getElementById("formUser").elements; /* Retorn os elementos html dentro do form*/
-	
-	for(p=0; p < elementos.length; p++){
-		elementos[p].value = '';
-	}
-	
-}
+		function limparForm() {
+			var elementos = document.getElementById("formUser").elements; /* Retorn os elementos html dentro do form*/
 
-</script>
+			for (p = 0; p < elementos.length; p++) {
+				elementos[p].value = '';
+			}
+
+		}
+	</script>
 </body>
 
 </html>
