@@ -91,7 +91,7 @@
 
 															<button type="button"
 																class="btn waves-effect waves-light hor-grd btn-grd-danger"
-																onclick="criarDelete();">Excluir</button>
+																onclick="criarDeleteComAjax();">Excluir</button>
 														</form>
 
 													</div>
@@ -100,7 +100,7 @@
 										</div>
 
 										<!-- Informando usuário cadastrado -->
-										<span>${msg}</span>
+										<span id="msg">${msg}</span>
 
 									</div>
 									<!-- Page-body end -->
@@ -118,13 +118,38 @@
 	<jsp:include page="javascriptfile.jsp"></jsp:include>
 
 	<script type="text/javascript">
+	
+		function criarDeleteComAjax() {
+			if(confirm('Deseja realmente excluir o usuário')){
+				/* Capturar do action do formulário */
+				var urlAction = document.getElementById('formUser').action;
+				
+				/* Captura o campo id do usuario */
+				var idUser = document.getElementById('id').value;
+				
+				$.ajax({
+					
+					method: "get", 
+					url: urlAction,
+					data: "id=" + idUser + "&acao=deletarajax",
+					success: function(response){
+						limparForm();
+						documentElementById('msg').textContent = response;
+					}
+					
+				}).fail(function(xhr, status, errorThrown){
+					alert('Erro ao deletar usuário por id: ' + xhr.responseText);
+				});
+			}
+		}
+
 		function criarDelete() {
 
-			if (confirm('Deseja realmente excluir o usuário?')){
+			if (confirm('Deseja realmente excluir o usuário?')) {
 				document.getElementById("formUser").method = 'get';
 				document.getElementById("acao").value = 'deletar';
 				document.getElementById("formUser").submit();
-			} 
+			}
 		}
 
 		function limparForm() {

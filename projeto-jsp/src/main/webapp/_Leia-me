@@ -207,6 +207,12 @@ Próximo passo é interceptar os parâmetros (nome, email e senha) do formulári
  
  Vamos fazer enviar pela mesma servlet atraves do método doGet (que é usado para consultar e deletar).
  OBS. O método doPost é usado para salvar e atualizar.
+ 
+ -------------------------------------------
+ Delete com ajax
+ A diferença é q com o ajax não existe redirecionamento, ou seja, não faz envio de formulário em 
+ html e sim de dados por parametro. E também o retorno não existe um redirecionamento de página, 
+ o que existe é um retorno de um dado, ou seja, de uma confirmação.
 
 
 

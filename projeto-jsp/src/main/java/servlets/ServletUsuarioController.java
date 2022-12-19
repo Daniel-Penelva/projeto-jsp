@@ -26,13 +26,15 @@ public class ServletUsuarioController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
-			
-			/* Captura o parametro ação para enviar a requisição no ServletUsuarioController */
+
+			/*
+			 * Captura o parametro ação para enviar a requisição no ServletUsuarioController
+			 */
 			String acao = request.getParameter("acao");
 
 			if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("deletar")) {
 
-				/* captura o parâmetro id do formulário */
+				/* Captura o parâmetro id do formulário */
 				String idUser = request.getParameter("id");
 
 				/* Chama o método deletar usuário para deletar no banco */
@@ -40,10 +42,26 @@ public class ServletUsuarioController extends HttpServlet {
 
 				/* Atribui uma mensagem na tela */
 				request.setAttribute("msg", "Excluido com sucesso!");
+
+				/* Redireciona para página usuario.jsp */
+				request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
+
+			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("deletarajax")) {
+
+				/* Captura o parâmetro id do formulário */
+				String idUser = request.getParameter("id");
+
+				/* Chama o método deletar usuário para deletar no banco */
+				daoUsuarioRepository.deletarUsuario(idUser);
+
+				/* Resposta de excluido - vai ser enviado para o @criarDeleteAjax() no response */
+				response.getWriter().write("Excluido com sucesso!");
+
+			} else {
+
+				/* Redireciona para página usuario.jsp */
+				request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
 			}
-			
-			/* Redireciona para página usuario.jsp */
-			request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
 
 		} catch (Exception e) {
 			e.printStackTrace();
