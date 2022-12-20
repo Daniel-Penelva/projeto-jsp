@@ -213,6 +213,12 @@ Próximo passo é interceptar os parâmetros (nome, email e senha) do formulári
  A diferença é q com o ajax não existe redirecionamento, ou seja, não faz envio de formulário em 
  html e sim de dados por parametro. E também o retorno não existe um redirecionamento de página, 
  o que existe é um retorno de um dado, ou seja, de uma confirmação.
+ 
+ -------------------------------------------
+ Com o modal não é possivel fazer um redirecionamento e recarregamento da tela, porque ele some. Logo 
+ a busca será feita em ajax fazendo com que trabalhemos somente dentro do modal. 
+ Como funciona: Vai ser disparado uma consulta ao banco de dados com javascript e retorna o json e
+ com o javascript preenche a tela. 
 
 
 

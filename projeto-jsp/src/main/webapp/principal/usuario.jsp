@@ -139,8 +139,8 @@
 
 					<div class="input-group mb-3">
 						<input type="text" class="form-control"
-							placeholder="Digite o nome do usuário" aria-label="nome" id="nomeBusca"
-							aria-describedby="basic-addon2">
+							placeholder="Digite o nome do usuário" aria-label="nome"
+							id="nomeBusca" aria-describedby="basic-addon2">
 						<div class="input-group-append">
 							<button class="btn btn-dark" type="button"
 								onclick="buscarUsuario();">Buscar</button>
@@ -172,9 +172,26 @@
 	
 		function buscarUsuario() {
 			var nomeBusca = document.getElementById("nomeBusca").value;
-			
-			if(nomeBusca != null && nomeBusca != '' && nomeBusca.trim() != ''){
-				alert(nomeBusca);
+
+			if (nomeBusca != null && nomeBusca != '' && nomeBusca.trim() != '') {
+				
+				var urlAction = document.getElementById('formUser').action;
+				
+				$.ajax({
+
+					method : "get",
+					url : urlAction,
+					data : "nomeBusca=" + nomeBusca + "&acao=buscarUserAjax",
+					success : function(response) {
+						
+					}
+
+				}).fail(
+						function(xhr, status, errorThrown) {
+							alert('Erro ao buscar usuário por nome: '
+									+ xhr.responseText);
+						});
+
 			}
 		}
 

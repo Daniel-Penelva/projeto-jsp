@@ -54,9 +54,25 @@ public class ServletUsuarioController extends HttpServlet {
 				/* Chama o método deletar usuário para deletar no banco */
 				daoUsuarioRepository.deletarUsuario(idUser);
 
-				/* Resposta de excluido - vai ser enviado para o @criarDeleteAjax() no response */
+				/*
+				 * Resposta de excluido - vai ser enviado para o @criarDeleteAjax() no response
+				 */
 				response.getWriter().write("Excluido com sucesso!");
 
+			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("buscarUserAjax")) {
+
+				/* Captura o parâmetro nomeBusca do modal */
+				String nomeBusca = request.getParameter("nomeBusca");
+				System.out.println(nomeBusca);
+				
+				/* Chama o método deletar usuário para deletar no banco */
+				//daoUsuarioRepository.deletarUsuario(nomeBusca);
+
+				/*
+				 * Resposta de excluido - vai ser enviado para o @criarDeleteAjax() no response
+				 */
+				//response.getWriter().write("Excluido com sucesso!");
+				
 			} else {
 
 				/* Redireciona para página usuario.jsp */
