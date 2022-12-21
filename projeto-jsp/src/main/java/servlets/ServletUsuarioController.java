@@ -9,6 +9,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import model.ModelLogin;
 
 import java.io.IOException;
+import java.util.List;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import dao.DaoUsuarioRepository;
 
@@ -63,15 +66,16 @@ public class ServletUsuarioController extends HttpServlet {
 
 				/* Captura o parâmetro nomeBusca do modal */
 				String nomeBusca = request.getParameter("nomeBusca");
-				System.out.println(nomeBusca);
+				
 				
 				/* Chama o método deletar usuário para deletar no banco */
-				//daoUsuarioRepository.deletarUsuario(nomeBusca);
-
-				/*
-				 * Resposta de excluido - vai ser enviado para o @criarDeleteAjax() no response
-				 */
-				//response.getWriter().write("Excluido com sucesso!");
+				List<ModelLogin> dadosJsonUser = daoUsuarioRepository.consultaUsuarioList(nomeBusca);
+				
+				ObjectMapper mapper = new ObjectMapper();
+				
+				String json = mapper.writeValueAsString(dadosJsonUser);
+				
+				response.getWriter().write(json);
 				
 			} else {
 

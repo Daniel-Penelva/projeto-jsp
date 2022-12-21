@@ -1,0 +1,1 @@
+select * from model_login where upper(nome) like upper('%daniel%');
