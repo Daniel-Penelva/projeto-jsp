@@ -66,17 +66,33 @@ public class ServletUsuarioController extends HttpServlet {
 
 				/* Captura o parâmetro nomeBusca do modal */
 				String nomeBusca = request.getParameter("nomeBusca");
-				
-				
+
 				/* Chama o método deletar usuário para deletar no banco */
 				List<ModelLogin> dadosJsonUser = daoUsuarioRepository.consultaUsuarioList(nomeBusca);
-				
+
 				ObjectMapper mapper = new ObjectMapper();
-				
+
 				String json = mapper.writeValueAsString(dadosJsonUser);
-				
+
 				response.getWriter().write(json);
-				
+
+			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("buscarEditar")) {
+
+				/* Captura o parâmetro nomeBusca do modal */
+				String id = request.getParameter("id");
+
+				//chama o método dao
+				ModelLogin modelLogin = daoUsuarioRepository.consultarUsuarioId(id);
+
+				// Mensagem para ser inserida na tela
+				request.setAttribute("msg", "Usuário em edição");
+
+				// Para recuperar os dados na tela ou para carregar o objeto (os dados) na tela
+				request.setAttribute("modelLogin", modelLogin);
+
+				// Redirecionar para uma página
+				request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
+
 			} else {
 
 				/* Redireciona para página usuario.jsp */

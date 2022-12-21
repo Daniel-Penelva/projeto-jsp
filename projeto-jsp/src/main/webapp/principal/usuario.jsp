@@ -172,6 +172,15 @@
 	</div>
 
 	<script type="text/javascript">
+		function verEditar(id) {
+			
+			/* Capturar a action do ServletUsuarioController do formulário para poder passar os parametros  */
+			var urlAction = document.getElementById('formUser').action;
+			
+			/* Redirecionamento com javascript passando o parametro - executa um doGet*/
+			window.location.href = urlAction + '?acao=buscarEditar&id='+ id;
+		}
+
 		function buscarUsuario() {
 			var nomeBusca = document.getElementById("nomeBusca").value;
 
@@ -196,12 +205,7 @@
 
 										for (var p = 0; p < json.length; p++) {
 											$('#tabelaresultados > tbody')
-													.append(
-															'<tr> <td>'
-																	+ json[p].id
-																	+ '</td> <td>'
-																	+ json[p].nome
-																	+ '</td> <td> <button type="button" class="btn btn-info">Visualizar</button> </td></tr>');
+													.append('<tr> <td>'+ json[p].id + '</td> <td>'+ json[p].nome + '</td> <td> <button onclick="verEditar('+ json[p].id + ')" type="button" class="btn btn-info">Visualizar</button> </td></tr>');
 										}
 
 										document

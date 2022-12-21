@@ -18,6 +18,7 @@ public class DaoUsuarioRepository {
 		connection = SingleConnectionBanco.getConnection();
 	}
 
+	/* Gravar usuário */
 	public ModelLogin gravarUsuario(ModelLogin modelLogin) throws SQLException {
 
 		/* Inserir novo usuario */
@@ -53,6 +54,7 @@ public class DaoUsuarioRepository {
 		return this.consultarUsuario(modelLogin.getLogin());
 	}
 
+	/* Listar usuário */
 	public List<ModelLogin> consultaUsuarioList(String nome) throws SQLException {
 
 		List<ModelLogin> retorno = new ArrayList<ModelLogin>();
@@ -78,6 +80,7 @@ public class DaoUsuarioRepository {
 		return retorno;
 	}
 
+	/* Consultar usuáro */
 	public ModelLogin consultarUsuario(String login) throws SQLException {
 
 		ModelLogin modelLogin = new ModelLogin();
@@ -100,7 +103,33 @@ public class DaoUsuarioRepository {
 
 		return modelLogin;
 	}
+	
+	/* Consultar id do usuáro */
+	public ModelLogin consultarUsuarioId(String id) throws SQLException {
 
+		ModelLogin modelLogin = new ModelLogin();
+
+		String sql = "SELECT * from model_login WHERE id = ?";
+
+		PreparedStatement prepararSql = connection.prepareStatement(sql);
+		prepararSql.setLong(1, Long.parseLong(id));
+
+		// Vai ser usado um resultSet pq vai retornar uma lista de objetos usuario
+		ResultSet resultado = prepararSql.executeQuery();
+
+		// Se tem resultado
+		while (resultado.next()) {
+			modelLogin.setId(resultado.getLong("id"));
+			modelLogin.setEmail(resultado.getString("email"));
+			modelLogin.setLogin(resultado.getString("login"));
+			modelLogin.setSenha(resultado.getString("senha"));
+			modelLogin.setNome(resultado.getString("nome"));
+		}
+
+		return modelLogin;
+	}
+
+	/* Validar login do usuário */
 	public boolean validarLogin(String login) throws Exception {
 
 		String sql = "select count(1) > 0 as existe from model_login where upper(login) = upper('" + login + "')";
@@ -125,6 +154,7 @@ public class DaoUsuarioRepository {
 		 */
 	}
 
+	/* Deletar usuáro */
 	public void deletarUsuario(String idUser) throws Exception {
 		String sql = "DELETE FROM model_login WHERE id = ?";
 
