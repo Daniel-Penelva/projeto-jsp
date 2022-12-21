@@ -220,6 +220,11 @@ Próximo passo é interceptar os parâmetros (nome, email e senha) do formulári
  Como funciona: Vai ser disparado uma consulta ao banco de dados com javascript e retorna o json e
  com o javascript preenche a tela. 
 
+--------------------------------------------
+Vale ressaltar que é preciso saber se o 'response' do usuario.jsp está em formato json, uma vez que 
+ele pode estar em formato de String.
+Caso ele não esteja em formato json vai ser preciso converter em formato json.
+Uma forma de descobrir se está em formato json é pelo tamanho usando o '.length'.
 
 
 

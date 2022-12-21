@@ -147,18 +147,21 @@
 						</div>
 					</div>
 
-					<table class="table table-hover">
-						<thead>
-							<tr>
-								<th scope="col">ID</th>
-								<th scope="col">Nome</th>
-								<th scope="col">Visualizar</th>
-							</tr>
-						</thead>
-						<tbody>
+					<div style="height: 300px; overflow: scroll">
+						<table class="table table-hover" id="tabelaresultados">
+							<thead>
+								<tr>
+									<th scope="col">ID</th>
+									<th scope="col">Nome</th>
+									<th scope="col">Visualizar</th>
+								</tr>
+							</thead>
+							<tbody>
 
-						</tbody>
-					</table>
+							</tbody>
+						</table>
+					</div>
+					<span id="totalResultados"></span>
 
 				</div>
 				<div class="modal-footer">
@@ -169,28 +172,48 @@
 	</div>
 
 	<script type="text/javascript">
-	
 		function buscarUsuario() {
 			var nomeBusca = document.getElementById("nomeBusca").value;
 
 			if (nomeBusca != null && nomeBusca != '' && nomeBusca.trim() != '') {
-				
+
 				var urlAction = document.getElementById('formUser').action;
-				
-				$.ajax({
 
-					method : "get",
-					url : urlAction,
-					data : "nomeBusca=" + nomeBusca + "&acao=buscarUserAjax",
-					success : function(response) {
-						alert(response);
-					}
+				$
+						.ajax(
+								{
 
-				}).fail(
-						function(xhr, status, errorThrown) {
-							alert('Erro ao buscar usuário por nome: '
-									+ xhr.responseText);
-						});
+									method : "get",
+									url : urlAction,
+									data : "nomeBusca=" + nomeBusca
+											+ "&acao=buscarUserAjax",
+									success : function(response) {
+
+										var json = JSON.parse(response);
+
+										$('#tabelaresultados > tbody > tr')
+												.remove();
+
+										for (var p = 0; p < json.length; p++) {
+											$('#tabelaresultados > tbody')
+													.append(
+															'<tr> <td>'
+																	+ json[p].id
+																	+ '</td> <td>'
+																	+ json[p].nome
+																	+ '</td> <td> <button type="button" class="btn btn-info">Visualizar</button> </td></tr>');
+										}
+
+										document
+												.getElementById('totalResultados').textContent = 'Resultados: '
+												+ json.length;
+									}
+
+								}).fail(
+								function(xhr, status, errorThrown) {
+									alert('Erro ao buscar usuário por nome: '
+											+ xhr.responseText);
+								});
 
 			}
 		}
