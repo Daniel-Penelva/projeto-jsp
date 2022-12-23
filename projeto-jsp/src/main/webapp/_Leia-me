@@ -226,7 +226,19 @@ ele pode estar em formato de String.
 Caso ele não esteja em formato json vai ser preciso converter em formato json.
 Uma forma de descobrir se está em formato json é pelo tamanho usando o '.length'.
 
+---------------------------------------------
+JSTL - FONTE: https://www.tutorialspoint.com/jsp/jsp_standard_tag_library.htm
 
+A JavaServer Pages Standard Tag Library (JSTL) é uma coleção de tags JSP úteis que encapsula a 
+funcionalidade principal comum a muitos aplicativos JSP.
+
+JSTL tem suporte para tarefas estruturais comuns, como iteração e condicionais, tags para manipulação 
+de documentos XML, tags de internacionalização e tags SQL. Ele também fornece uma estrutura para 
+integrar as tags customizadas existentes com as tags JSTL.
+
+Tags principais
+O grupo principal de tags são as tags JSTL mais usadas. A seguir está a sintaxe para incluir a biblioteca JSTL Core em seu JSP:
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 
 
 
