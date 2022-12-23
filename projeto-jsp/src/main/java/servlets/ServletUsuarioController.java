@@ -42,6 +42,12 @@ public class ServletUsuarioController extends HttpServlet {
 
 				/* Chama o método deletar usuário para deletar no banco */
 				daoUsuarioRepository.deletarUsuario(idUser);
+				
+				// Criando lista de usuários buscando dados do BD
+				List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList();
+				
+				// Mensagem para ser inserida na tela
+				request.setAttribute("msg", "Lista de usuários carregados");
 
 				/* Atribui uma mensagem na tela */
 				request.setAttribute("msg", "Excluido com sucesso!");
@@ -81,8 +87,14 @@ public class ServletUsuarioController extends HttpServlet {
 				/* Captura o parâmetro nomeBusca do modal */
 				String id = request.getParameter("id");
 
-				//chama o método dao
+				// chama o método dao
 				ModelLogin modelLogin = daoUsuarioRepository.consultarUsuarioId(id);
+				
+				// Criando lista de usuários buscando dados do BD
+				List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList();
+				
+				// Mensagem para ser inserida na tela
+				request.setAttribute("msg", "Lista de usuários carregados");
 
 				// Mensagem para ser inserida na tela
 				request.setAttribute("msg", "Usuário em edição");
@@ -93,8 +105,28 @@ public class ServletUsuarioController extends HttpServlet {
 				// Redirecionar para uma página
 				request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
 
-			} else {
+			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("listarUser")) {
+				
+				// Criando lista de usuários buscando dados do BD
+				List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList();
 
+				// Mensagem para ser inserida na tela
+				request.setAttribute("msg", "Lista de usuários carregados");
+
+				// Para recuperar os dados na tela ou para carregar o objeto (os dados) na tela
+				request.setAttribute("modelLogins", modelLogins);
+
+				// Redirecionar para uma página
+				request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
+				
+			} else {
+				
+				// Criando lista de usuários buscando dados do BD
+				List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList();
+				
+				// Mensagem para ser inserida na tela
+				request.setAttribute("msg", "Lista de usuários carregados");
+				
 				/* Redireciona para página usuario.jsp */
 				request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
 			}
@@ -146,6 +178,12 @@ public class ServletUsuarioController extends HttpServlet {
 
 				modelLogin = daoUsuarioRepository.gravarUsuario(modelLogin);
 			}
+			
+			// Criando lista de usuários buscando dados do BD
+			List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList();
+			
+			// Mensagem para ser inserida na tela
+			request.setAttribute("msg", "Lista de usuários carregados");
 
 			// Mensagem para ser inserida na tela
 			request.setAttribute("msg", mensagem);

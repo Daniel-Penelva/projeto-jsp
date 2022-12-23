@@ -54,7 +54,31 @@ public class DaoUsuarioRepository {
 		return this.consultarUsuario(modelLogin.getLogin());
 	}
 
-	/* Listar usuário */
+	/* Listar todos os usuários */
+	public List<ModelLogin> consultaUsuarioList() throws SQLException {
+
+		List<ModelLogin> retorno = new ArrayList<ModelLogin>();
+
+		String sql = "select * from model_login";
+
+		PreparedStatement prepararSql = connection.prepareStatement(sql);
+
+		ResultSet resultado = prepararSql.executeQuery();
+
+		while (resultado.next()) {
+			ModelLogin modelLogin = new ModelLogin();
+			modelLogin.setEmail(resultado.getString("email"));
+			modelLogin.setId(resultado.getLong("id"));
+			modelLogin.setLogin(resultado.getString("login"));
+			modelLogin.setNome(resultado.getString("nome"));
+
+			retorno.add(modelLogin);
+		}
+
+		return retorno;
+	}
+
+	/* Listar usuário por nome */
 	public List<ModelLogin> consultaUsuarioList(String nome) throws SQLException {
 
 		List<ModelLogin> retorno = new ArrayList<ModelLogin>();
@@ -103,7 +127,7 @@ public class DaoUsuarioRepository {
 
 		return modelLogin;
 	}
-	
+
 	/* Consultar id do usuáro */
 	public ModelLogin consultarUsuarioId(String id) throws SQLException {
 
