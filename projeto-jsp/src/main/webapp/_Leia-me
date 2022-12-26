@@ -240,6 +240,22 @@ Tags principais
 O grupo principal de tags são as tags JSTL mais usadas. A seguir está a sintaxe para incluir a biblioteca JSTL Core em seu JSP:
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 
+--------------------------------------------
+É importante criar um usuário admin padrao para controlar o sistema. O objetivo é criar
+uma forma de bloqueio para que ninguem consiga acessar a sua conta de administrador, 
+ou seja, para que ninguem consiga editar a sua conta.
+
+Para fazer isso basta ter um campo 'useradmin' do tipo boolean no banco de dados para que o
+usuário que tiver permissao com o valor 'true' possa ter a possibilidade de fazer qualquer
+coisa no projeto, isto é, atualizar o projeto com novas funcionalidades quando precisar.
+
+Vale ressaltar q esse usuario admin não pode ser mostrado na tela. Logo todas as sql (no dao) 
+que traz todos os usuarios precisarão ter uma restrição para que isso não aconteça.
+
+
+
+ 
+
 
 
 
