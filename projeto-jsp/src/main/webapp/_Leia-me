@@ -252,6 +252,27 @@ coisa no projeto, isto é, atualizar o projeto com novas funcionalidades quando 
 Vale ressaltar q esse usuario admin não pode ser mostrado na tela. Logo todas as sql (no dao) 
 que traz todos os usuarios precisarão ter uma restrição para que isso não aconteça.
 
+----------------------------------------------
+
+Começar a separar os dados por usuários, por exemplo, digamos que temos vários usuários 
+e que queremos separar os dados.
+
+ 1º tem que ter uma coluna em todas as tabelas que foram 
+criadas para separar os dados pelo usuário, como por exemplo separar os dados quando o 
+usuário fizer o cadastro, ou seja, para identificar cada usuario vamos criar uma coluna id.
+
+2º Criar o campo id_usuario como uma chave estrangeira e contudo add uma constrante para 
+identificá-la como uma chave primária que vai fazer uma referencia a tabela usuario_model
+para a coluna id.
+
+Criar um servlet generico para logar o usuario (vai chamar o dao também e a conexão com o banco de dados).
+
+Agora vai ter que levar em consideração todo o usuário que estiver logado, ou seja, o 
+id_usuario que vai estar logado, portanto, terá que add na condição do sql do dao o campo id_usuario.
+
+ 
+
+
 
 
  

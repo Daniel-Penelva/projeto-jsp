@@ -15,7 +15,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import dao.DaoUsuarioRepository;
 
-public class ServletUsuarioController extends HttpServlet {
+public class ServletUsuarioController extends ServletGenericUtil {
 	private static final long serialVersionUID = 1L;
 
 	// Criar um objeto dao para chamar o método gravar
@@ -44,7 +44,7 @@ public class ServletUsuarioController extends HttpServlet {
 				daoUsuarioRepository.deletarUsuario(idUser);
 				
 				// Criando lista de usuários buscando dados do BD
-				List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList();
+				List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList(super.getUserLogado(request));
 				
 				// Mensagem para ser inserida na tela
 				request.setAttribute("msg", "Lista de usuários carregados");
@@ -74,7 +74,7 @@ public class ServletUsuarioController extends HttpServlet {
 				String nomeBusca = request.getParameter("nomeBusca");
 
 				/* Chama o método deletar usuário para deletar no banco */
-				List<ModelLogin> dadosJsonUser = daoUsuarioRepository.consultaUsuarioList(nomeBusca);
+				List<ModelLogin> dadosJsonUser = daoUsuarioRepository.consultaUsuarioList(nomeBusca, super.getUserLogado(request));
 
 				ObjectMapper mapper = new ObjectMapper();
 
@@ -88,10 +88,10 @@ public class ServletUsuarioController extends HttpServlet {
 				String id = request.getParameter("id");
 
 				// chama o método dao
-				ModelLogin modelLogin = daoUsuarioRepository.consultarUsuarioId(id);
+				ModelLogin modelLogin = daoUsuarioRepository.consultarUsuarioId(id, super.getUserLogado(request));
 				
 				// Criando lista de usuários buscando dados do BD
-				List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList();
+				List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList(super.getUserLogado(request));
 				
 				// Mensagem para ser inserida na tela
 				request.setAttribute("msg", "Lista de usuários carregados");
@@ -108,7 +108,7 @@ public class ServletUsuarioController extends HttpServlet {
 			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("listarUser")) {
 				
 				// Criando lista de usuários buscando dados do BD
-				List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList();
+				List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList(super.getUserLogado(request));
 
 				// Mensagem para ser inserida na tela
 				request.setAttribute("msg", "Lista de usuários carregados");
@@ -122,7 +122,7 @@ public class ServletUsuarioController extends HttpServlet {
 			} else {
 				
 				// Criando lista de usuários buscando dados do BD
-				List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList();
+				List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList(super.getUserLogado(request));
 				
 				// Mensagem para ser inserida na tela
 				request.setAttribute("msg", "Lista de usuários carregados");
@@ -176,11 +176,11 @@ public class ServletUsuarioController extends HttpServlet {
 					mensagem = "Atualizado com sucesso!";
 				}
 
-				modelLogin = daoUsuarioRepository.gravarUsuario(modelLogin);
+				modelLogin = daoUsuarioRepository.gravarUsuario(modelLogin, super.getUserLogado(request));
 			}
 			
 			// Criando lista de usuários buscando dados do BD
-			List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList();
+			List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList(super.getUserLogado(request));
 			
 			// Mensagem para ser inserida na tela
 			request.setAttribute("msg", "Lista de usuários carregados");
