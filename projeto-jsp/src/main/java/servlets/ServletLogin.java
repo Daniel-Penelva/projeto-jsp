@@ -3,6 +3,7 @@ package servlets;
 import java.io.IOException;
 
 import dao.DaoLoginRepository;
+import dao.DaoUsuarioRepository;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -17,9 +18,12 @@ import model.ModelLogin;
 public class ServletLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/* Declarando e criando um objeto dao */
+	/* Declarando e criando um objeto dao login */
 	private DaoLoginRepository daoLoginRepository = new DaoLoginRepository();
-
+	
+	/* Declarando e criando um objeto dao usuário */
+	private DaoUsuarioRepository daoUsuarioRepository = new DaoUsuarioRepository();
+	
 	public ServletLogin() {
 	}
 
@@ -71,9 +75,15 @@ public class ServletLogin extends HttpServlet {
 
 				/* Simulando acesso do Login */
 				if (daoLoginRepository.validarAutenticacao(modelLogin)) {
-
+					
+					// Para consultar no banco de dados
+					modelLogin = daoUsuarioRepository.consultarUsuarioLogado(login);
+					
 					/* Atributo de sessão para manter o usuário logado na sessão */
 					request.getSession().setAttribute("usuario", modelLogin.getLogin());
+					
+					/* Atributo de sessão para manter o admin logado na sessão */
+					request.getSession().setAttribute("isAdmin", modelLogin.getUserAdmin());
 
 					/*
 					 * Validação da url para verificar se ela é nula e se ela for nula é adicionado
