@@ -83,7 +83,7 @@ public class ServletLogin extends HttpServlet {
 					request.getSession().setAttribute("usuario", modelLogin.getLogin());
 					
 					/* Atributo de sessão para manter o admin logado na sessão */
-					request.getSession().setAttribute("isAdmin", modelLogin.getUserAdmin());
+					request.getSession().setAttribute("perfil", modelLogin.getPerfil());
 
 					/*
 					 * Validação da url para verificar se ela é nula e se ela for nula é adicionado

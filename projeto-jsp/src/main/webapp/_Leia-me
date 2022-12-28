@@ -270,6 +270,11 @@ Criar um servlet generico para logar o usuario (vai chamar o dao também e a con
 Agora vai ter que levar em consideração todo o usuário que estiver logado, ou seja, o 
 id_usuario que vai estar logado, portanto, terá que add na condição do sql do dao o campo id_usuario.
 
+----------------------------------------------
+
+Controlando o tipo de perfil do usuário, para isso vai ser preciso de um campo especificando 
+o tipo de usuário, por exemplo, tipo usuário secretária. Na tela pode-se colocar um combo
+de opções com vários tipos de usuários.
  
 
 

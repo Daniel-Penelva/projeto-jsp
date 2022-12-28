@@ -12,12 +12,14 @@ public class ModelLogin implements Serializable {
 	private String login;
 	private String senha;
 	private boolean userAdmin;
+	private String perfil;
 
 	public boolean isNovo() {
 		if (this.id == null) {
 			/* Inserir novo usuario */
 			return true;
-		} else if (this.id != null && this.id > 0) { // verifica se o id é maior que zero o que significa q existe um id de usuário
+		} else if (this.id != null && this.id > 0) { // verifica se o id é maior que zero o que significa q existe um id
+														// de usuário
 			/* Atualiza usuário */
 			return false;
 		}
@@ -64,7 +66,6 @@ public class ModelLogin implements Serializable {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-	
 
 	public boolean getUserAdmin() {
 		return userAdmin;
@@ -72,6 +73,14 @@ public class ModelLogin implements Serializable {
 
 	public void setUserAdmin(boolean userAdmin) {
 		this.userAdmin = userAdmin;
+	}
+
+	public String getPerfil() {
+		return perfil;
+	}
+
+	public void setPerfil(String perfil) {
+		this.perfil = perfil;
 	}
 
 	public static long getSerialversionuid() {

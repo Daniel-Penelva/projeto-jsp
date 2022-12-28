@@ -151,6 +151,7 @@ public class ServletUsuarioController extends ServletGenericUtil {
 			String email = request.getParameter("email");
 			String login = request.getParameter("login");
 			String senha = request.getParameter("senha");
+			String perfil = request.getParameter("perfil");
 
 			// Inicializar o objeto
 			ModelLogin modelLogin = new ModelLogin();
@@ -159,6 +160,7 @@ public class ServletUsuarioController extends ServletGenericUtil {
 			modelLogin.setEmail(email);
 			modelLogin.setLogin(login);
 			modelLogin.setSenha(senha);
+			modelLogin.setPerfil(perfil);
 
 			// Validações para conferir se já existe login (true) e se é um novo id (que é
 			// um usuario novo)
