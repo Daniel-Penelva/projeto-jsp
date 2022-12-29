@@ -44,7 +44,7 @@
 												<div class="card">
 													<div class="card-block">
 														<h4 class="sub-title">Cadastro de Usuário</h4>
-														<form class="form-material"
+														<form class="form-material" enctype="multipart/form-data"
 															action="<%=request.getContextPath()%>/ServletUsuarioController"
 															method="post" id="formUser">
 
@@ -56,6 +56,14 @@
 																	value="${modelLogin.id}"> <span
 																	class="form-bar"></span> <label class="float-label">ID:</label>
 															</div>
+															
+															<div class="form-group form-default input-group mb-4">
+																<div class="input-group-prepend">
+																	<img alt="Imagem User" src="https://cdn.icon-icons.com/icons2/510/PNG/512/person-add_icon-icons.com_50077.png" width="45px">
+																</div>
+																<input type="file" class="form-control-file" style="margin-top: 15px; margin-left: 5px">
+															</div>
+															
 															<div class="form-group form-default form-static-label">
 																<input type="text" name="nome" id="nome"
 																	class="form-control" required="required"

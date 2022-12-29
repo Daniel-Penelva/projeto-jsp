@@ -275,6 +275,13 @@ id_usuario que vai estar logado, portanto, terá que add na condição do sql do
 Controlando o tipo de perfil do usuário, para isso vai ser preciso de um campo especificando 
 o tipo de usuário, por exemplo, tipo usuário secretária. Na tela pode-se colocar um combo
 de opções com vários tipos de usuários.
+
+----------------------------------------------
+Para fazer o upload de imagem o formulario precisa de um tipo de dados cujo a propriedade e o valor é:
+enctype="multipart/form-data" 
+E na servlet tem que adicionar a anotação @MultipartConfig para poder fazer o upload de imagem (por exemplo, imagem de foto).
+Proximo passo adicionar um campo de foto na tela. Serão add dois botões - segue o exemplo no site da bootstrap:
+https://getbootstrap.com/docs/4.0/components/forms
  
 
 

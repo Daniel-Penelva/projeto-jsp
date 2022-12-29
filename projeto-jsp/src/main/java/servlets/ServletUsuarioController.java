@@ -8,10 +8,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import dao.DaoUsuarioRepository;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.ModelLogin;
 
+@MultipartConfig
 public class ServletUsuarioController extends ServletGenericUtil {
 	private static final long serialVersionUID = 1L;
 
