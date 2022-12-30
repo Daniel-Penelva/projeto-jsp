@@ -282,6 +282,16 @@ enctype="multipart/form-data"
 E na servlet tem que adicionar a anotação @MultipartConfig para poder fazer o upload de imagem (por exemplo, imagem de foto).
 Proximo passo adicionar um campo de foto na tela. Serão add dois botões - segue o exemplo no site da bootstrap:
 https://getbootstrap.com/docs/4.0/components/forms
+
+Adicionar uma propriedade accept para aceitar qlq valor de imagem ao ser carregada pelo usuário,
+ficaria assim: accept="image/*"
+
+Depois de add a imagem a página precisa ser atualizada, vamos fazer isso com a propriedade onchange que vai 
+chamar uma função JS que vai ser passado dois parametros o "id da imagem" e o "id do campo tipo file". 
+
+Ex: onchange="visualizarImg('fotoembase64', 'fileFoto');"
+
+Proximo passo é fazer essa imagem chegar na servletUsuarioController.
  
 
 

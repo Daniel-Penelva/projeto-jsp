@@ -3,6 +3,10 @@ package servlets;
 import java.io.IOException;
 import java.util.List;
 
+import org.apache.tomcat.jakartaee.commons.compress.utils.IOUtils;
+import org.apache.tomcat.util.codec.binary.Base64;
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import dao.DaoUsuarioRepository;
@@ -11,6 +15,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
 import model.ModelLogin;
 
 @MultipartConfig
@@ -165,6 +170,18 @@ public class ServletUsuarioController extends ServletGenericUtil {
 			modelLogin.setSenha(senha);
 			modelLogin.setPerfil(perfil);
 			modelLogin.setSexo(sexo);
+			
+			/* Condição para capturar a foto */
+			if(ServletFileUpload.isMultipartContent(request)) {
+				/* Pega a foto da tela */
+				Part part = request.getPart("fileFoto");
+				
+				/* converter a imagem para byte */
+				byte[] foto = IOUtils.toByteArray(part.getInputStream());
+				
+				/* Converte agora para String - OBS. gera uma String bem grande */
+				String imagemBase64 = new Base64().encodeBase64String(foto);
+			}
 
 			// Validações para conferir se já existe login (true) e se é um novo id (que é
 			// um usuario novo)

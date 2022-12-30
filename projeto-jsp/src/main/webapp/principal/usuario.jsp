@@ -59,9 +59,9 @@
 															
 															<div class="form-group form-default input-group mb-4">
 																<div class="input-group-prepend">
-																	<img alt="Imagem User" src="https://cdn.icon-icons.com/icons2/510/PNG/512/person-add_icon-icons.com_50077.png" width="45px">
+																	<img alt="Imagem User" id="fotoembase64" src="" width="45px">
 																</div>
-																<input type="file" class="form-control-file" style="margin-top: 15px; margin-left: 5px">
+																<input type="file" id="fileFoto" name="fileFoto" accept="image/*" onchange="visualizarImg('fotoembase64', 'fileFoto');" class="form-control-file" style="margin-top: 15px; margin-left: 5px">
 															</div>
 															
 															<div class="form-group form-default form-static-label">
@@ -251,6 +251,26 @@
 	</div>
 
 	<script type="text/javascript">
+	    
+	    function visualizarImg(fotoembase64, filefoto){
+	    	var preview = document.getElementById(fotoembase64); /* Campo img HTML */
+	    	var fileUser = document.getElementById(filefoto).files[0];
+	    	
+	    	/* Para trabalhar com a imagem */
+	    	var reader = new FileReader();
+	    	
+	    	/* Para quando haja algum evento de carregamento nele */
+	    	reader.onloadend = function (){
+	    		preview.src = reader.result;  /* Carrega a foto na tela */
+	    	};
+	    	
+	    	if(fileUser){
+	    		reader.readAsDataURL(fileUser); /* Preview da imagem */
+	    	}else{
+	    		preview.src='';
+	    	}
+	    }
+	
 		function verEditar(id) {
 
 			/* Capturar a action do ServletUsuarioController do formulário para poder passar os parametros  */
