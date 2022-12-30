@@ -292,6 +292,14 @@ chamar uma função JS que vai ser passado dois parametros o "id da imagem" e o 
 Ex: onchange="visualizarImg('fotoembase64', 'fileFoto');"
 
 Proximo passo é fazer essa imagem chegar na servletUsuarioController.
+
+Proximo passo é inserir no banco de dados (DaoUsuarioRepository) e fazer uma atualização. Para a 
+atualização vai ser feita uma condicional para saber se realmente foi gravado uma foto, caso 
+entre na condição terá que ser feito uma sql para atualizar, por fim prepara a sql e executa.
+
+Site para converter imagem base64 -> https://base64.guru/converter/decode/image 
+Copie a base64 gravada no BD e cola no site para verificar se é a imagem correta.
+
  
 
 

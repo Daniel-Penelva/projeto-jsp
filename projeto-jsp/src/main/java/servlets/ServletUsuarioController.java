@@ -179,8 +179,15 @@ public class ServletUsuarioController extends ServletGenericUtil {
 				/* converter a imagem para byte */
 				byte[] foto = IOUtils.toByteArray(part.getInputStream());
 				
-				/* Converte agora para String - OBS. gera uma String bem grande */
-				String imagemBase64 = new Base64().encodeBase64String(foto);
+				/* Converte agora para String - OBS. gera uma String bem grande 
+				 * O resultado abaixo é o padrão a ser usado.*/
+				String imagemBase64 = "data:image/" + part.getContentType().split("\\/")[1] + ";base64," + new Base64().encodeBase64String(foto);
+				
+				/* captura a imagem e a extensão */
+				modelLogin.setFotouser(imagemBase64);
+				modelLogin.setExtensaofotouser(part.getContentType().split("\\/")[1]);
+				
+				
 			}
 
 			// Validações para conferir se já existe login (true) e se é um novo id (que é

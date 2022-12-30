@@ -39,8 +39,25 @@ public class DaoUsuarioRepository {
 
 			connection.commit();
 
+			/* Condicional para saber se realmente foi gravado uma foto */
+			if (modelLogin.getFotouser() != null && !modelLogin.getFotouser().isEmpty()) {
+
+				sql = "update model_login set fotouser = ?, extensaofotouser = ? where login = ?";
+
+				prepararSql = connection.prepareStatement(sql);
+
+				prepararSql.setString(1, modelLogin.getFotouser());
+				prepararSql.setString(2, modelLogin.getExtensaofotouser());
+				prepararSql.setString(3, modelLogin.getLogin());
+
+				prepararSql.execute();
+
+				connection.commit();
+			}
+
 		} else {
-			String sql = "UPDATE model_login SET login=?, senha=?, nome=?, email=?, perfil=?, sexo=? WHERE id= " + modelLogin.getId();
+			String sql = "UPDATE model_login SET login=?, senha=?, nome=?, email=?, perfil=?, sexo=? WHERE id= "
+					+ modelLogin.getId();
 			PreparedStatement prepararSql = connection.prepareStatement(sql);
 
 			prepararSql.setString(1, modelLogin.getLogin());
@@ -52,6 +69,22 @@ public class DaoUsuarioRepository {
 
 			prepararSql.executeUpdate();
 			connection.commit();
+
+			/* Condicional para saber se realmente foi gravado uma foto */
+			if (modelLogin.getFotouser() != null && !modelLogin.getFotouser().isEmpty()) {
+
+				sql = "update model_login set fotouser = ?, extensaofotouser = ? where id = ?";
+
+				prepararSql = connection.prepareStatement(sql);
+
+				prepararSql.setString(1, modelLogin.getFotouser());
+				prepararSql.setString(2, modelLogin.getExtensaofotouser());
+				prepararSql.setLong(3, modelLogin.getId());
+
+				prepararSql.execute();
+
+				connection.commit();
+			}
 		}
 
 		// Terminando de gravar o usuário no banco de dados
@@ -119,7 +152,8 @@ public class DaoUsuarioRepository {
 
 		ModelLogin modelLogin = new ModelLogin();
 
-		String sql = "SELECT * from model_login WHERE upper(login) = upper('" + login + "') and useradmin is false and usuario_id = " + userLogado;
+		String sql = "SELECT * from model_login WHERE upper(login) = upper('" + login
+				+ "') and useradmin is false and usuario_id = " + userLogado;
 
 		PreparedStatement prepararSql = connection.prepareStatement(sql);
 
@@ -139,8 +173,7 @@ public class DaoUsuarioRepository {
 
 		return modelLogin;
 	}
-	
-	
+
 	/* Consultar usuário pelo login */
 	public ModelLogin consultarUsuarioLogado(String login) throws SQLException {
 
@@ -167,9 +200,7 @@ public class DaoUsuarioRepository {
 
 		return modelLogin;
 	}
-	
-	
-	
+
 	/* Consultar usuário pelo login */
 	public ModelLogin consultarUsuario(String login) throws SQLException {
 
@@ -196,8 +227,6 @@ public class DaoUsuarioRepository {
 
 		return modelLogin;
 	}
-	
-	
 
 	/* Consultar id do usuáro */
 	public ModelLogin consultarUsuarioId(String id, Long userLogado) throws SQLException {
