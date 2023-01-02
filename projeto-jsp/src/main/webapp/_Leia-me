@@ -300,6 +300,12 @@ entre na condição terá que ser feito uma sql para atualizar, por fim prepara 
 Site para converter imagem base64 -> https://base64.guru/converter/decode/image 
 Copie a base64 gravada no BD e cola no site para verificar se é a imagem correta.
 
+----------------------------------------------
+
+Para fazer um campo de download de imagem tem que adicionar uma tag <a> sobre a tag <img>. O
+atributo 'href' dispara um get que vai para o ServletUsuario. Vai ser passado uma ação que vai ser
+capturada pelo getParameter e nessa ação terá uma condição para o download da imagem.
+
  
 
 
