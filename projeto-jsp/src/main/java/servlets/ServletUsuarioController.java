@@ -46,10 +46,10 @@ public class ServletUsuarioController extends ServletGenericUtil {
 
 				/* Chama o método deletar usuário para deletar no banco */
 				daoUsuarioRepository.deletarUsuario(idUser);
-				
+
 				// Criando lista de usuários buscando dados do BD
 				List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList(super.getUserLogado(request));
-				
+
 				// Mensagem para ser inserida na tela
 				request.setAttribute("msg", "Lista de usuários carregados");
 
@@ -78,7 +78,8 @@ public class ServletUsuarioController extends ServletGenericUtil {
 				String nomeBusca = request.getParameter("nomeBusca");
 
 				/* Chama o método deletar usuário para deletar no banco */
-				List<ModelLogin> dadosJsonUser = daoUsuarioRepository.consultaUsuarioList(nomeBusca, super.getUserLogado(request));
+				List<ModelLogin> dadosJsonUser = daoUsuarioRepository.consultaUsuarioList(nomeBusca,
+						super.getUserLogado(request));
 
 				ObjectMapper mapper = new ObjectMapper();
 
@@ -93,10 +94,10 @@ public class ServletUsuarioController extends ServletGenericUtil {
 
 				// chama o método dao
 				ModelLogin modelLogin = daoUsuarioRepository.consultarUsuarioId(id, super.getUserLogado(request));
-				
+
 				// Criando lista de usuários buscando dados do BD
 				List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList(super.getUserLogado(request));
-				
+
 				// Mensagem para ser inserida na tela
 				request.setAttribute("msg", "Lista de usuários carregados");
 
@@ -110,7 +111,7 @@ public class ServletUsuarioController extends ServletGenericUtil {
 				request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
 
 			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("listarUser")) {
-				
+
 				// Criando lista de usuários buscando dados do BD
 				List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList(super.getUserLogado(request));
 
@@ -122,15 +123,15 @@ public class ServletUsuarioController extends ServletGenericUtil {
 
 				// Redirecionar para uma página
 				request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
-				
+
 			} else {
-				
+
 				// Criando lista de usuários buscando dados do BD
 				List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList(super.getUserLogado(request));
-				
+
 				// Mensagem para ser inserida na tela
 				request.setAttribute("msg", "Lista de usuários carregados");
-				
+
 				/* Redireciona para página usuario.jsp */
 				request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
 			}
@@ -170,24 +171,28 @@ public class ServletUsuarioController extends ServletGenericUtil {
 			modelLogin.setSenha(senha);
 			modelLogin.setPerfil(perfil);
 			modelLogin.setSexo(sexo);
-			
+
 			/* Condição para capturar a foto */
-			if(ServletFileUpload.isMultipartContent(request)) {
+			if (ServletFileUpload.isMultipartContent(request)) {
 				/* Pega a foto da tela */
 				Part part = request.getPart("fileFoto");
-				
-				/* converter a imagem para byte */
-				byte[] foto = IOUtils.toByteArray(part.getInputStream());
-				
-				/* Converte agora para String - OBS. gera uma String bem grande 
-				 * O resultado abaixo é o padrão a ser usado.*/
-				String imagemBase64 = "data:image/" + part.getContentType().split("\\/")[1] + ";base64," + new Base64().encodeBase64String(foto);
-				
-				/* captura a imagem e a extensão */
-				modelLogin.setFotouser(imagemBase64);
-				modelLogin.setExtensaofotouser(part.getContentType().split("\\/")[1]);
-				
-				
+
+				if (part.getSize() > 0) {
+					/* converter a imagem para byte */
+					byte[] foto = IOUtils.toByteArray(part.getInputStream());
+
+					/*
+					 * Converte agora para String - OBS. gera uma String bem grande O resultado
+					 * abaixo é o padrão a ser usado.
+					 */
+					String imagemBase64 = "data:image/" + part.getContentType().split("\\/")[1] + ";base64,"
+							+ new Base64().encodeBase64String(foto);
+
+					/* captura a imagem e a extensão */
+					modelLogin.setFotouser(imagemBase64);
+					modelLogin.setExtensaofotouser(part.getContentType().split("\\/")[1]);
+				}
+
 			}
 
 			// Validações para conferir se já existe login (true) e se é um novo id (que é
@@ -205,10 +210,10 @@ public class ServletUsuarioController extends ServletGenericUtil {
 
 				modelLogin = daoUsuarioRepository.gravarUsuario(modelLogin, super.getUserLogado(request));
 			}
-			
+
 			// Criando lista de usuários buscando dados do BD
 			List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList(super.getUserLogado(request));
-			
+
 			// Mensagem para ser inserida na tela
 			request.setAttribute("msg", "Lista de usuários carregados");
 
