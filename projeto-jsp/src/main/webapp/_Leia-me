@@ -313,7 +313,14 @@ Consumindo API WebService ViaCEP
 https://viacep.com.br/
 https://viacep.com.br/exemplo/jquery/
 
+
+----------------------------------------------
+ Paginação é um carregamento por demanda, por exemplo, não seria prudente carregar todos
+ os usuário senão prejudicaria a perfomance do sistema, ou seja, poderia tornar lenta o carregamento
+ da tela.
  
+ Por exemplo, poderia carregar de cinco em cinco o usuário, limitando o carregamento para garantir
+ melhor performance ao sistema.
 
 
 

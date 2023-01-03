@@ -106,12 +106,40 @@ public class DaoUsuarioRepository {
 		return this.consultarUsuario(modelLogin.getLogin(), userLogado);
 	}
 
+	
+	/* Listar usuários de cinco em cinco */
+	public List<ModelLogin> consultaUsuarioListPaginada(Long userLogado, Integer offset) throws SQLException {
+
+		List<ModelLogin> retorno = new ArrayList<ModelLogin>();
+
+		String sql = "select * from model_login where useradmin is false and usuario_id = " + userLogado + " order by nome offset" + offset + " limit 5";
+
+		PreparedStatement prepararSql = connection.prepareStatement(sql);
+
+		ResultSet resultado = prepararSql.executeQuery();
+
+		while (resultado.next()) {
+			ModelLogin modelLogin = new ModelLogin();
+			modelLogin.setEmail(resultado.getString("email"));
+			modelLogin.setId(resultado.getLong("id"));
+			modelLogin.setLogin(resultado.getString("login"));
+			modelLogin.setNome(resultado.getString("nome"));
+			modelLogin.setPerfil(resultado.getString("perfil"));
+			modelLogin.setSexo(resultado.getString("sexo"));
+
+			retorno.add(modelLogin);
+		}
+
+		return retorno;
+	}
+	
+	
 	/* Listar todos os usuários */
 	public List<ModelLogin> consultaUsuarioList(Long userLogado) throws SQLException {
 
 		List<ModelLogin> retorno = new ArrayList<ModelLogin>();
 
-		String sql = "select * from model_login where useradmin is false and usuario_id = " + userLogado;
+		String sql = "select * from model_login where useradmin is false and usuario_id = " + userLogado + " limit 5";
 
 		PreparedStatement prepararSql = connection.prepareStatement(sql);
 
@@ -132,12 +160,12 @@ public class DaoUsuarioRepository {
 		return retorno;
 	}
 
-	/* Listar usuário por nome */
+	/* Listar usuário(s) por nome */
 	public List<ModelLogin> consultaUsuarioList(String nome, Long userLogado) throws SQLException {
 
 		List<ModelLogin> retorno = new ArrayList<ModelLogin>();
 
-		String sql = "select * from model_login where upper(nome) like upper(?) and useradmin is false and usuario_id = ?";
+		String sql = "select * from model_login where upper(nome) like upper(?) and useradmin is false and usuario_id = ? limit 5";
 
 		PreparedStatement prepararSql = connection.prepareStatement(sql);
 
@@ -161,7 +189,7 @@ public class DaoUsuarioRepository {
 		return retorno;
 	}
 
-	/* Consultar usuário pelo login e pelo usuário logado */
+	/* Consultar um usuário pelo login e pelo usuário logado */
 	public ModelLogin consultarUsuario(String login, Long userLogado) throws SQLException {
 
 		ModelLogin modelLogin = new ModelLogin();
@@ -195,7 +223,7 @@ public class DaoUsuarioRepository {
 		return modelLogin;
 	}
 
-	/* Consultar usuário pelo login */
+	/* Consultar um usuário já logado */
 	public ModelLogin consultarUsuarioLogado(String login) throws SQLException {
 
 		ModelLogin modelLogin = new ModelLogin();
@@ -230,7 +258,7 @@ public class DaoUsuarioRepository {
 		return modelLogin;
 	}
 
-	/* Consultar usuário pelo login */
+	/* Consultar um usuário pelo login */
 	public ModelLogin consultarUsuario(String login) throws SQLException {
 
 		ModelLogin modelLogin = new ModelLogin();
@@ -264,7 +292,7 @@ public class DaoUsuarioRepository {
 		return modelLogin;
 	}
 
-	/* Consultar id do usuáro */
+	/* Consultar um usuário pelo id */
 	public ModelLogin consultarUsuarioId(String id, Long userLogado) throws SQLException {
 
 		ModelLogin modelLogin = new ModelLogin();
