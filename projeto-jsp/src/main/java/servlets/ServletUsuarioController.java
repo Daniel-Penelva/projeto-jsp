@@ -56,6 +56,9 @@ public class ServletUsuarioController extends ServletGenericUtil {
 				/* Atribui uma mensagem na tela */
 				request.setAttribute("msg", "Excluido com sucesso!");
 
+				/* Atributo para retornar o total de pagina */
+				request.setAttribute("totalPagina", daoUsuarioRepository.totalPagina(this.getUserLogado(request)));
+
 				/* Redireciona para página usuario.jsp */
 				request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
 
@@ -107,6 +110,9 @@ public class ServletUsuarioController extends ServletGenericUtil {
 				// Para recuperar os dados na tela ou para carregar o objeto (os dados) na tela
 				request.setAttribute("modelLogin", modelLogin);
 
+				/* Atributo para retornar o total de pagina */
+				request.setAttribute("totalPagina", daoUsuarioRepository.totalPagina(this.getUserLogado(request)));
+
 				// Redirecionar para uma página
 				request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
 
@@ -121,19 +127,24 @@ public class ServletUsuarioController extends ServletGenericUtil {
 				// Para recuperar os dados na tela ou para carregar o objeto (os dados) na tela
 				request.setAttribute("modelLogins", modelLogins);
 
+				/* Atributo para retornar o total de pagina */
+				request.setAttribute("totalPagina", daoUsuarioRepository.totalPagina(this.getUserLogado(request)));
+
 				// Redirecionar para uma página
 				request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
 
 			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("downloadFoto")) {
-				
+
 				/* Captura o parâmetro id do formulário */
 				String idUser = request.getParameter("id");
-				
+
 				ModelLogin modelLogin = daoUsuarioRepository.consultarUsuarioId(idUser, super.getUserLogado(request));
-				
-				if(modelLogin.getFotouser() != null && !modelLogin.getFotouser().isEmpty()) {
-					response.setHeader("Content-Disposition", "attachment;filename=arquivo." + modelLogin.getExtensaofotouser());
-					response.getOutputStream().write(new Base64().decodeBase64(modelLogin.getFotouser().split("\\,")[1]));
+
+				if (modelLogin.getFotouser() != null && !modelLogin.getFotouser().isEmpty()) {
+					response.setHeader("Content-Disposition",
+							"attachment;filename=arquivo." + modelLogin.getExtensaofotouser());
+					response.getOutputStream()
+							.write(new Base64().decodeBase64(modelLogin.getFotouser().split("\\,")[1]));
 				}
 			} else {
 
@@ -142,6 +153,9 @@ public class ServletUsuarioController extends ServletGenericUtil {
 
 				// Mensagem para ser inserida na tela
 				request.setAttribute("msg", "Lista de usuários carregados");
+
+				/* Atributo para retornar o total de pagina */
+				request.setAttribute("totalPagina", daoUsuarioRepository.totalPagina(this.getUserLogado(request)));
 
 				/* Redireciona para página usuario.jsp */
 				request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
@@ -245,6 +259,9 @@ public class ServletUsuarioController extends ServletGenericUtil {
 
 			// Para recuperar os dados na tela ou para carregar o objeto (os dados) na tela
 			request.setAttribute("modelLogin", modelLogin);
+
+			/* Atributo para retornar o total de pagina */
+			request.setAttribute("totalPagina", daoUsuarioRepository.totalPagina(this.getUserLogado(request)));
 
 			// Redirecionar para uma página
 			request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);

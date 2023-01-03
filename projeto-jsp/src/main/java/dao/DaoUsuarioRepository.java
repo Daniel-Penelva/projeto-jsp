@@ -34,7 +34,7 @@ public class DaoUsuarioRepository {
 			prepararSql.setLong(5, userLogado);
 			prepararSql.setString(6, modelLogin.getPerfil());
 			prepararSql.setString(7, modelLogin.getSexo());
-			
+
 			prepararSql.setString(8, modelLogin.getCep());
 			prepararSql.setString(9, modelLogin.getLogradouro());
 			prepararSql.setString(10, modelLogin.getBairro());
@@ -73,7 +73,7 @@ public class DaoUsuarioRepository {
 			prepararSql.setString(4, modelLogin.getEmail());
 			prepararSql.setString(5, modelLogin.getPerfil());
 			prepararSql.setString(6, modelLogin.getSexo());
-			
+
 			prepararSql.setString(7, modelLogin.getCep());
 			prepararSql.setString(8, modelLogin.getLogradouro());
 			prepararSql.setString(9, modelLogin.getBairro());
@@ -106,13 +106,13 @@ public class DaoUsuarioRepository {
 		return this.consultarUsuario(modelLogin.getLogin(), userLogado);
 	}
 
-	
 	/* Listar usuários de cinco em cinco */
 	public List<ModelLogin> consultaUsuarioListPaginada(Long userLogado, Integer offset) throws SQLException {
 
 		List<ModelLogin> retorno = new ArrayList<ModelLogin>();
 
-		String sql = "select * from model_login where useradmin is false and usuario_id = " + userLogado + " order by nome offset" + offset + " limit 5";
+		String sql = "select * from model_login where useradmin is false and usuario_id = " + userLogado
+				+ " order by nome offset" + offset + " limit 5";
 
 		PreparedStatement prepararSql = connection.prepareStatement(sql);
 
@@ -132,8 +132,30 @@ public class DaoUsuarioRepository {
 
 		return retorno;
 	}
-	
-	
+
+	public int totalPagina(Long userLogado) throws Exception {
+		String sql = "select count(1) as total from model_login where usuario_id = " + userLogado;
+
+		PreparedStatement prepararSql = connection.prepareStatement(sql);
+
+		ResultSet resultado = prepararSql.executeQuery();
+
+		Double total_cadastros = resultado.getDouble("total");
+
+		Double porpagina = 5.0;
+
+		Double pagina = total_cadastros / porpagina;
+
+		Double resto = pagina % 2;
+
+		/* Acrescenta uma página se for maior que zero */
+		if (resto > 0) {
+			pagina++;
+		}
+		
+		return pagina.intValue();
+	}
+
 	/* Listar todos os usuários */
 	public List<ModelLogin> consultaUsuarioList(Long userLogado) throws SQLException {
 
@@ -252,7 +274,7 @@ public class DaoUsuarioRepository {
 			modelLogin.setLocalidade(resultado.getString("localidade"));
 			modelLogin.setUf(resultado.getString("uf"));
 			modelLogin.setNumero(resultado.getString("numero"));
-			
+
 		}
 
 		return modelLogin;
