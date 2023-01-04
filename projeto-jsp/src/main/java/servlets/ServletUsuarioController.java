@@ -50,6 +50,9 @@ public class ServletUsuarioController extends ServletGenericUtil {
 				// Criando lista de usuários buscando dados do BD
 				List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList(super.getUserLogado(request));
 
+				// Para recuperar a lista de usuários
+				request.setAttribute("modelLogins", modelLogins);
+
 				// Mensagem para ser inserida na tela
 				request.setAttribute("msg", "Lista de usuários carregados");
 
@@ -101,6 +104,9 @@ public class ServletUsuarioController extends ServletGenericUtil {
 				// Criando lista de usuários buscando dados do BD
 				List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList(super.getUserLogado(request));
 
+				// Para recuperar a lista de usuários
+				request.setAttribute("modelLogins", modelLogins);
+
 				// Mensagem para ser inserida na tela
 				request.setAttribute("msg", "Lista de usuários carregados");
 
@@ -145,11 +151,30 @@ public class ServletUsuarioController extends ServletGenericUtil {
 							"attachment;filename=arquivo." + modelLogin.getExtensaofotouser());
 					response.getOutputStream()
 							.write(new Base64().decodeBase64(modelLogin.getFotouser().split("\\,")[1]));
+
 				}
+			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("paginar")) {
+
+				Integer offset = Integer.parseInt(request.getParameter("pagina"));
+
+				List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioListPaginada(this.getUserLogado(request), offset);
+
+				// Para recuperar a lista de usuários
+				request.setAttribute("modelLogins", modelLogins);
+
+				/* Atributo para retornar o total de pagina */
+				request.setAttribute("totalPagina", daoUsuarioRepository.totalPagina(this.getUserLogado(request)));
+
+				/* Redireciona para página usuario.jsp */
+				request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
+
 			} else {
 
 				// Criando lista de usuários buscando dados do BD
 				List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList(super.getUserLogado(request));
+
+				// Para recuperar a lista de usuários
+				request.setAttribute("modelLogins", modelLogins);
 
 				// Mensagem para ser inserida na tela
 				request.setAttribute("msg", "Lista de usuários carregados");
@@ -250,6 +275,9 @@ public class ServletUsuarioController extends ServletGenericUtil {
 
 			// Criando lista de usuários buscando dados do BD
 			List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList(super.getUserLogado(request));
+
+			// Para recuperar a lista de usuários
+			request.setAttribute("modelLogins", modelLogins);
 
 			// Mensagem para ser inserida na tela
 			request.setAttribute("msg", "Lista de usuários carregados");

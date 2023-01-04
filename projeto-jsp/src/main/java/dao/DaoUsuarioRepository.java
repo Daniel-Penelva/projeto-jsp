@@ -111,8 +111,7 @@ public class DaoUsuarioRepository {
 
 		List<ModelLogin> retorno = new ArrayList<ModelLogin>();
 
-		String sql = "select * from model_login where useradmin is false and usuario_id = " + userLogado
-				+ " order by nome offset" + offset + " limit 5";
+		String sql = "select * from model_login where useradmin is false and usuario_id = " + userLogado + " order by nome offset "+offset+" limit 5";
 
 		PreparedStatement prepararSql = connection.prepareStatement(sql);
 
@@ -139,12 +138,14 @@ public class DaoUsuarioRepository {
 		PreparedStatement prepararSql = connection.prepareStatement(sql);
 
 		ResultSet resultado = prepararSql.executeQuery();
+		
+		resultado.next();
 
-		Double total_cadastros = resultado.getDouble("total");
+		Double cadastros = resultado.getDouble("total");
 
 		Double porpagina = 5.0;
 
-		Double pagina = total_cadastros / porpagina;
+		Double pagina = cadastros / porpagina;
 
 		Double resto = pagina % 2;
 

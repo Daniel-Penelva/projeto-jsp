@@ -321,6 +321,8 @@ https://viacep.com.br/exemplo/jquery/
  
  Por exemplo, poderia carregar de cinco em cinco o usuário, limitando o carregamento para garantir
  melhor performance ao sistema.
+ 
+ https://getbootstrap.com/docs/4.0/components/pagination/
 
 
 
