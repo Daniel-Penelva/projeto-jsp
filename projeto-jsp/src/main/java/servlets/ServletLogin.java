@@ -84,6 +84,9 @@ public class ServletLogin extends HttpServlet {
 					
 					/* Atributo de sessão para manter o admin logado na sessão */
 					request.getSession().setAttribute("perfil", modelLogin.getPerfil());
+					
+					/* Para mostrar a imagem do usuário na tela da sessão */
+					request.getSession().setAttribute("imagemUser", modelLogin.getFotouser());
 
 					/*
 					 * Validação da url para verificar se ela é nula e se ela for nula é adicionado
