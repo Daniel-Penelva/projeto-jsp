@@ -91,6 +91,39 @@ public class ServletUsuarioController extends ServletGenericUtil {
 
 				String json = mapper.writeValueAsString(dadosJsonUser);
 
+				/*
+				 * adicionar por cabeçalho, ou seja, para não misturar esses dados com a lista
+				 * de retorno do ModelLogin. Portanto, a resposta não vai ser enviado pela lista
+				 * e sim pelo cabeçalho.
+				 */
+				response.addHeader("totalPagina", "" + daoUsuarioRepository
+						.consultaUsuarioListTotalPaginaPaginacao(nomeBusca, super.getUserLogado(request)));
+
+				/* retorna a lista json de usuario */
+				response.getWriter().write(json);
+
+			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("buscarUserAjaxPage")) {
+
+				/* Captura o parâmetro nomeBusca do modal */
+				String nomeBusca = request.getParameter("nomeBusca");
+				String pagina = request.getParameter("pagina");
+
+				/* Chama o método deletar usuário para deletar no banco */
+				List<ModelLogin> dadosJsonUser = daoUsuarioRepository.consultaUsuarioListOffSet(nomeBusca, super.getUserLogado(request), Integer.parseInt(pagina));
+
+				ObjectMapper mapper = new ObjectMapper();
+
+				String json = mapper.writeValueAsString(dadosJsonUser);
+
+				/*
+				 * adicionar por cabeçalho, ou seja, para não misturar esses dados com a lista
+				 * de retorno do ModelLogin. Portanto, a resposta não vai ser enviado pela lista
+				 * e sim pelo cabeçalho.
+				 */
+				response.addHeader("totalPagina", "" + daoUsuarioRepository
+						.consultaUsuarioListTotalPaginaPaginacao(nomeBusca, super.getUserLogado(request)));
+
+				/* retorna a lista json de usuario */
 				response.getWriter().write(json);
 
 			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("buscarEditar")) {
@@ -157,7 +190,8 @@ public class ServletUsuarioController extends ServletGenericUtil {
 
 				Integer offset = Integer.parseInt(request.getParameter("pagina"));
 
-				List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioListPaginada(this.getUserLogado(request), offset);
+				List<ModelLogin> modelLogins = daoUsuarioRepository
+						.consultaUsuarioListPaginada(this.getUserLogado(request), offset);
 
 				// Para recuperar a lista de usuários
 				request.setAttribute("modelLogins", modelLogins);

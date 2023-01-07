@@ -250,8 +250,6 @@
 											  		
 											  		String url = request.getContextPath() + "/ServletUsuarioController?acao=paginar&pagina=" + (p * 5);
 											  		out.print("<li class=\"page-item\"><a class=\"page-link\" href=\""+url+"\">"+(p+1)+"</a></li>");
-											  		
-											  		//out.print("<li class=\"page-item\"><a class=\"page-link\" href=\""+ url +"\">"+ (p + 1) +"</a></li>");
 											  	}
 										  	%>
 										    
@@ -312,6 +310,13 @@
 							</tbody>
 						</table>
 					</div>
+					
+					<nav aria-label="Page navigation example">
+						<ul class="pagination" id="ulPaginacaoUserAjax"> 
+						
+						</ul> 
+					</nav>
+						
 					<span id="totalResultados"></span>
 
 				</div>
@@ -368,28 +373,89 @@
 			/* Redirecionamento com javascript passando o parametro - executa um doGet*/
 			window.location.href = urlAction + '?acao=buscarEditar&id=' + id;
 		}
+		
+		function buscaUserPagAjax(url){
+			
+			var urlAction = document.getElementById('formUser').action;
+			var nomeBusca = document.getElementById('nomeBusca').value;
+			
+			$.ajax(
+					{
+						method : "get",
+						url : urlAction,
+						data : url,
+						success : function(response, textStatus, xhr) {
+
+							var json = JSON.parse(response);
+
+							/* limpar a tabela depois de ter visto o resultado */
+							$('#tabelaresultados > tbody > tr').remove();
+							
+							/* limpar a li depois de ter visto o resultado */
+							$("#ulPaginacaoUserAjax > li").remove();
+
+							for (var p = 0; p < json.length; p++) {
+								$('#tabelaresultados > tbody')
+										.append(
+												'<tr> <td>'
+														+ json[p].id
+														+ '</td> <td>'
+														+ json[p].nome
+														+ '</td> <td> <button onclick="verEditar('
+														+ json[p].id
+														+ ')" type="button" class="btn btn-info">Visualizar</button> </td></tr>');
+							}
+
+							document
+									.getElementById('totalResultados').textContent = 'Resultados: '
+									+ json.length;
+							
+							
+							/* Para gerar uma mensagem de status, por exemplo, sucesso */
+							/* xhr pega os dados do cabeçalho */
+							/* totalPagina é o parametro passado na ServletUsuario */
+							
+							var totalPagina = xhr.getResponseHeader("totalPagina");
+							
+							/* Mesma lógica da páginação */
+							for(var p = 0; p < totalPagina; p++){
+								
+								var url = 'nomeBusca=' + nomeBusca + '&acao=buscarUserAjaxPage&pagina='+ (p * 5);
+								
+								 $("#ulPaginacaoUserAjax").append('<li class="page-item"><a class="page-link" href="#" onclick="buscaUserPagAjax(\''+url+'\')">'+ (p + 1) +'</a></li>'); 				      
+							}
+						}
+
+					}).fail(
+					function(xhr, status, errorThrown) {
+						alert('Erro ao buscar usuário por nome: '
+								+ xhr.responseText);
+					});
+			
+		}
 
 		function buscarUsuario() {
-			var nomeBusca = document.getElementById("nomeBusca").value;
-
+			var nomeBusca = document.getElementById('nomeBusca').value;
+			
+            /* Validando que tem o valor para buscar no banco de dados */
 			if (nomeBusca != null && nomeBusca != '' && nomeBusca.trim() != '') {
-
+				
 				var urlAction = document.getElementById('formUser').action;
 
-				$
-						.ajax(
-								{
+				$.ajax({
 
 									method : "get",
 									url : urlAction,
-									data : "nomeBusca=" + nomeBusca
-											+ "&acao=buscarUserAjax",
-									success : function(response) {
+									data : "nomeBusca=" + nomeBusca + "&acao=buscarUserAjax",
+									success : function(response, textStatus, xhr) {
 
 										var json = JSON.parse(response);
 
-										$('#tabelaresultados > tbody > tr')
-												.remove();
+										/* limpar a tabela depois de ter visto o resultado */
+										$('#tabelaresultados > tbody > tr').remove();
+										
+										/* limpar a li depois de ter visto o resultado */
+										$("#ulPaginacaoUserAjax > li").remove();
 
 										for (var p = 0; p < json.length; p++) {
 											$('#tabelaresultados > tbody')
@@ -406,12 +472,27 @@
 										document
 												.getElementById('totalResultados').textContent = 'Resultados: '
 												+ json.length;
+										
+										
+										/* Para gerar uma mensagem de status, por exemplo, sucesso */
+										/* xhr pega os dados do cabeçalho */
+										/* totalPagina é o parametro passado na ServletUsuario */
+										
+										var totalPagina = xhr.getResponseHeader("totalPagina");
+										
+										/* Mesma lógica da páginação */
+										for(var p = 0; p < totalPagina; p++){
+											
+											 var url = 'nomeBusca=' + nomeBusca + '&acao=buscarUserAjaxPage&pagina='+ (p * 5);
+											
+											 $("#ulPaginacaoUserAjax").append('<li class="page-item"><a class="page-link" href="#" onclick="buscaUserPagAjax(\''+url+'\')">'+ (p + 1) +'</a></li>');
+										      
+										}
 									}
 
 								}).fail(
 								function(xhr, status, errorThrown) {
-									alert('Erro ao buscar usuário por nome: '
-											+ xhr.responseText);
+									alert('Erro ao buscar usuário por nome: ' + xhr.responseText);
 								});
 
 			}
