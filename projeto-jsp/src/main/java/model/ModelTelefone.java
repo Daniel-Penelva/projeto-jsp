@@ -3,7 +3,7 @@ package model;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class model_telefone implements Serializable {
+public class ModelTelefone implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -57,7 +57,7 @@ public class model_telefone implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		model_telefone other = (model_telefone) obj;
+		ModelTelefone other = (ModelTelefone) obj;
 		return Objects.equals(id, other.id);
 	}
 }

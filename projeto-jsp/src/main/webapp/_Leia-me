@@ -324,6 +324,9 @@ https://viacep.com.br/exemplo/jquery/
  
  https://getbootstrap.com/docs/4.0/components/pagination/
  
+ ----------------------------------------------
+ O telefone não vai ser retornado para a tela, apenas será carregado uma lista.
+ 
 
 
 

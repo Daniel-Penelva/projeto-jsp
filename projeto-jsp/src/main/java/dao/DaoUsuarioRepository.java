@@ -375,6 +375,41 @@ public class DaoUsuarioRepository {
 
 		return modelLogin;
 	}
+	
+	public ModelLogin consultarUsuarioId(Long id) throws SQLException {
+
+		ModelLogin modelLogin = new ModelLogin();
+
+		String sql = "SELECT * from model_login WHERE id = ? and useradmin is false";
+
+		PreparedStatement prepararSql = connection.prepareStatement(sql);
+		prepararSql.setLong(1, id);
+		
+
+		// Vai ser usado um resultSet pq vai retornar uma lista de objetos usuario
+		ResultSet resultado = prepararSql.executeQuery();
+
+		// Se tem resultado
+		while (resultado.next()) {
+			modelLogin.setId(resultado.getLong("id"));
+			modelLogin.setEmail(resultado.getString("email"));
+			modelLogin.setLogin(resultado.getString("login"));
+			modelLogin.setSenha(resultado.getString("senha"));
+			modelLogin.setNome(resultado.getString("nome"));
+			modelLogin.setPerfil(resultado.getString("perfil"));
+			modelLogin.setSexo(resultado.getString("sexo"));
+			modelLogin.setFotouser(resultado.getString("fotouser"));
+			modelLogin.setExtensaofotouser(resultado.getString("extensaofotouser"));
+			modelLogin.setCep(resultado.getString("cep"));
+			modelLogin.setLogradouro(resultado.getString("logradouro"));
+			modelLogin.setBairro(resultado.getString("bairro"));
+			modelLogin.setLocalidade(resultado.getString("localidade"));
+			modelLogin.setUf(resultado.getString("uf"));
+			modelLogin.setNumero(resultado.getString("numero"));
+		}
+
+		return modelLogin;
+	}
 
 	/* Consultar um usuário pelo id */
 	public ModelLogin consultarUsuarioId(String id, Long userLogado) throws SQLException {

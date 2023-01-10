@@ -8,7 +8,7 @@ CREATE SEQUENCE public.telefone_seq
 create table telefone(
  id integer not null DEFAULT nextval('telefone_seq'::regclass),
  numero character varying(50) not null, 
- usuario_pai_id bigint not null,
+ usuario_pai_id bigint not null,   
  usuario_cad_id bigint not null,
 
  constraint telefone_pkay primary key(id),
