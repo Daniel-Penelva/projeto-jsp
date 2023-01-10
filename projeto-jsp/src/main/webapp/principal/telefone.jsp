@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="ISO-8859-1"%>
-	
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -36,7 +36,7 @@
 									<!-- Page-body start -->
 									<div class="page-body">
 										<div class="row">
-											<h1>Conteúdo das páginas base do sistema</h1>
+											<h1>Tela de Telefone</h1>
 
 										</div>
 									</div>

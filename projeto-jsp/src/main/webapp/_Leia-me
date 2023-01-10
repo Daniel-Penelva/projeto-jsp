@@ -327,6 +327,11 @@ https://viacep.com.br/exemplo/jquery/
  ----------------------------------------------
  O telefone não vai ser retornado para a tela, apenas será carregado uma lista.
  
+ Na Servlet:
+Vai ser criado um link para telefone no usuario.jsp, o intuito é enviar o formulário através desse link, ou seja, 
+o href vai enviar um link para a ServletTelefone (vai disparar um doGet), esse link vai conter o parametro
+do id do usuário para identificá-lo, isto é, vai abrir a tela do telefone do usuário referenciado.
+ 
 
 
 

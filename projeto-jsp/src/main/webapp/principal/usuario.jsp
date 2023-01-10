@@ -208,7 +208,11 @@
 															<button type="button" class="btn btn-warning"
 																data-toggle="modal" data-target="#exampleModalUsuario">
 																Pesquisar</button>
-
+															
+															<c:if test="${modelLogin.id > 0 }">
+															<a href="<%= request.getContextPath() %>/ServletTelefone?iduser=${modelLogin.id}" class="btn btn-info">Telefone</a>
+															</c:if>
+															
 														</form>
 
 													</div>
