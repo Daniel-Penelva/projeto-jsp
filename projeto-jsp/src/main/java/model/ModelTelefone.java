@@ -9,8 +9,8 @@ public class ModelTelefone implements Serializable {
 
 	private Long id;
 	private String numero;
-	private ModelLogin usuario_pai_id;
-	private ModelLogin usuario_cad_id;
+	private ModelLogin usuario_pai_id; /* corresponde ao id do usuario */
+	private ModelLogin usuario_cad_id; /* corresponde ao id do admin que cadastrou o usuário */
 
 	public Long getId() {
 		return id;
