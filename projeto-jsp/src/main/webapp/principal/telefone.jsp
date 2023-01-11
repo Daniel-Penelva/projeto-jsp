@@ -116,6 +116,15 @@
 
 	<!-- Required Jquery -->
 	<jsp:include page="javascriptfile.jsp"></jsp:include>
+	
+	<script type="text/javascript">
+	
+	/* Garante apenas numero no campo de telefone*/
+	$("#numero").keypress(function (event) {
+		   return /\d/.test(String.fromCharCode(event.keyCode)); 
+		});
+	
+	</script>
 </body>
 
 </html>

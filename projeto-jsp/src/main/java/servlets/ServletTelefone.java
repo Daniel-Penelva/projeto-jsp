@@ -102,7 +102,7 @@ public class ServletTelefone extends ServletGenericUtil {
 			request.setAttribute("modelLogin", modelLogin);
 			request.setAttribute("modelTelefones", modelTelefones);
 			request.setAttribute("msg", "Salvo com sucesso");
-			request.getRequestDispatcher("principal/telefone.jsp").forward(request, response);
+			request.getRequestDispatcher("principal/telefone.jsp").forward(request, response); 
 
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -333,6 +333,16 @@
 
 	<script type="text/javascript">
 	
+	/* Garante apenas numero no campo de endereço */
+	$("#numero").keypress(function (event) {
+		   return /\d/.test(String.fromCharCode(event.keyCode)); 
+		});
+	
+	/* Garante apenas numero no campo de cep*/
+	$("#cep").keypress(function (event) {
+	    return /\d/.test(String.fromCharCode(event.keyCode)); 
+	 });
+	
 	    function pesquisaCep() {
 			var cep = $("#cep").val();
 			
