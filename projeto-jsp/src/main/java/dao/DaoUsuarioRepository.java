@@ -23,7 +23,7 @@ public class DaoUsuarioRepository {
 
 		/* Inserir novo usuario */
 		if (modelLogin.isNovo()) {
-			String sql = "INSERT INTO model_login (login, senha, nome, email, usuario_id, perfil, sexo, cep, logradouro, bairro, localidade, uf, numero) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO model_login (login, senha, nome, email, usuario_id, perfil, sexo, cep, logradouro, bairro, localidade, uf, numero, datanascimento) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 			PreparedStatement prepararSql = connection.prepareStatement(sql);
 
@@ -41,6 +41,7 @@ public class DaoUsuarioRepository {
 			prepararSql.setString(11, modelLogin.getLocalidade());
 			prepararSql.setString(12, modelLogin.getUf());
 			prepararSql.setString(13, modelLogin.getNumero());
+			prepararSql.setDate(14, modelLogin.getDataNascimento());
 
 			prepararSql.execute();
 
@@ -63,7 +64,7 @@ public class DaoUsuarioRepository {
 			}
 
 		} else {
-			String sql = "UPDATE model_login SET login=?, senha=?, nome=?, email=?, perfil=?, sexo=?, cep=?, logradouro=?, bairro=?, localidade=?, uf=?, numero=? WHERE id= "
+			String sql = "UPDATE model_login SET login=?, senha=?, nome=?, email=?, perfil=?, sexo=?, cep=?, logradouro=?, bairro=?, localidade=?, uf=?, numero=?, datanascimento=? WHERE id= "
 					+ modelLogin.getId();
 			PreparedStatement prepararSql = connection.prepareStatement(sql);
 
@@ -80,6 +81,7 @@ public class DaoUsuarioRepository {
 			prepararSql.setString(10, modelLogin.getLocalidade());
 			prepararSql.setString(11, modelLogin.getUf());
 			prepararSql.setString(12, modelLogin.getNumero());
+			prepararSql.setDate(13, modelLogin.getDataNascimento());
 
 			prepararSql.executeUpdate();
 			connection.commit();
