@@ -1,0 +1,1 @@
+alter table model_login add column rendamensal double precision;

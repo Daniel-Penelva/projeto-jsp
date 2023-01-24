@@ -254,6 +254,12 @@ public class ServletUsuarioController extends ServletGenericUtil {
 			String uf = request.getParameter("uf");
 			String numero = request.getParameter("numero");
 			String dataNascimento = request.getParameter("dataNascimento");
+			String rendaMensal = request.getParameter("rendamensal");
+			
+			// Tem que retirar o cifrao e a virgula e ponto que especifica o valor do dinheiro
+			// o código abaixo vai fazer uma troca para vazio
+			// tem que ser enviado número limpo para o BD
+			rendaMensal = rendaMensal.split("\\ ")[1].replaceAll("\\.", "").replaceAll("\\,", ".");
 			
 
 			// Inicializar o objeto
@@ -272,6 +278,7 @@ public class ServletUsuarioController extends ServletGenericUtil {
 			modelLogin.setUf(uf);
 			modelLogin.setNumero(numero);
 			modelLogin.setDataNascimento(new Date(new SimpleDateFormat("dd/mm/yyyy").parse(dataNascimento).getTime()));
+			modelLogin.setRendamensal(Double.parseDouble(rendaMensal));
 
 			/* Condição para capturar a foto */
 			if (ServletFileUpload.isMultipartContent(request)) {

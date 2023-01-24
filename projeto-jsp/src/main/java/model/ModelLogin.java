@@ -24,6 +24,7 @@ public class ModelLogin implements Serializable {
 	private String uf;
 	private String numero;
 	private Date dataNascimento;
+	private Double rendamensal;
 
 	public boolean isNovo() {
 		if (this.id == null) {
@@ -172,6 +173,14 @@ public class ModelLogin implements Serializable {
 
 	public void setDataNascimento(Date dataNascimento) {
 		this.dataNascimento = dataNascimento;
+	}
+
+	public Double getRendamensal() {
+		return rendamensal;
+	}
+
+	public void setRendamensal(Double rendamensal) {
+		this.rendamensal = rendamensal;
 	}
 
 	public static long getSerialversionuid() {
