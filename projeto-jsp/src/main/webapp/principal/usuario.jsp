@@ -351,6 +351,29 @@
 	/* Renda Mensal */
 	$("#rendamensal").maskMoney({showSymbol:true, symbol:"R$ ", decimal:",", thousands:"."});
 	
+	/* criado uma constante de formatação para a renda mensal */
+	const formatter = new Intl.NumberFormat('pt-BR',{
+		currency : 'BRL',
+		minimumFractionDigits : 2
+	});
+	
+	/* Agora, pegar da tela o valor do campo de renda em relação ao formato estipulado acima e passar outro valor formatado*/
+	$("#rendamensal").val(formatter.format($("#rendamensal").val()));
+	
+	/* Para preparar a tela para a edição feita */
+	$("#rendamensal").focus();
+	
+	/* formatando a saida correta da data  - primeiro captura o valor da data de nascimento */
+	var dataNascimento = $("#dataNascimento").val();
+	
+	/* criando um valor para o campo de data de nascimento */
+	var dateFormat = new Date(dataNascimento);
+	
+	/* passando para o formato brasileiro */
+	$("#dataNascimento").val(dateFormat.toLocaleDateString('pt-BR',{timeZone: 'UTC'}));
+	
+	$("#nome").focus();
+	
 	/* Calendário do JQuery - traduzir o calendário */
 	$( function() {
 	  
