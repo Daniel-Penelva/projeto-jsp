@@ -331,6 +331,18 @@ https://viacep.com.br/exemplo/jquery/
 Vai ser criado um link para telefone no usuario.jsp, o intuito é enviar o formulário através desse link, ou seja, 
 o href vai enviar um link para a ServletTelefone (vai disparar um doGet), esse link vai conter o parametro
 do id do usuário para identificá-lo, isto é, vai abrir a tela do telefone do usuário referenciado.
+
+-----------------------------------------------
+
+Vamos fazer um relatório de usuários, lembrando que para relatório usa-se o doGet.
+Para fazer o relátorio vai precisar de uma ação para listar o usuário.
+
+Lembrando que a captura do valor do "request.getParameter("name")" é pela propriedade: name="dataInicial".
+
+Lembrando que o request.setAttribute("dataInicial", dataInicial) imprime na tela através da propriedade: value="${dataInicial}".
+
+
+group forms bootstrap -> https://getbootstrap.com/docs/4.0/components/forms/
  
 
 

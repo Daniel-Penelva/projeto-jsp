@@ -111,7 +111,8 @@ public class ServletUsuarioController extends ServletGenericUtil {
 				String pagina = request.getParameter("pagina");
 
 				/* Chama o método deletar usuário para deletar no banco */
-				List<ModelLogin> dadosJsonUser = daoUsuarioRepository.consultaUsuarioListOffSet(nomeBusca, super.getUserLogado(request), Integer.parseInt(pagina));
+				List<ModelLogin> dadosJsonUser = daoUsuarioRepository.consultaUsuarioListOffSet(nomeBusca,
+						super.getUserLogado(request), Integer.parseInt(pagina));
 
 				ObjectMapper mapper = new ObjectMapper();
 
@@ -204,7 +205,21 @@ public class ServletUsuarioController extends ServletGenericUtil {
 				/* Redireciona para página usuario.jsp */
 				request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
 
-			} else {
+			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("imprimirRelatorioUser")) {
+
+				String dataIncial = request.getParameter("dataInicial");
+				String dataFinal = request.getParameter("dataFinal");
+				
+				System.out.println("imprimindo relatorio");
+				
+				// Para mostrar os dados na tela 
+				request.setAttribute("dataInicial", dataIncial);
+				request.setAttribute("dataFinal", dataFinal);
+				
+				// Para rediresionar para a página reluser
+				request.getRequestDispatcher("principal/reluser.jsp").forward(request, response);
+			}
+			else {
 
 				// Criando lista de usuários buscando dados do BD
 				List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList(super.getUserLogado(request));
@@ -255,12 +270,12 @@ public class ServletUsuarioController extends ServletGenericUtil {
 			String numero = request.getParameter("numero");
 			String dataNascimento = request.getParameter("dataNascimento");
 			String rendaMensal = request.getParameter("rendamensal");
-			
-			// Tem que retirar o cifrao e a virgula e ponto que especifica o valor do dinheiro
+
+			// Tem que retirar o cifrao e a virgula e ponto que especifica o valor do
+			// dinheiro
 			// o código abaixo vai fazer uma troca para vazio
 			// tem que ser enviado número limpo para o BD
 			rendaMensal = rendaMensal.split("\\ ")[1].replaceAll("\\.", "").replaceAll("\\,", ".");
-			
 
 			// Inicializar o objeto
 			ModelLogin modelLogin = new ModelLogin();
@@ -277,10 +292,12 @@ public class ServletUsuarioController extends ServletGenericUtil {
 			modelLogin.setLocalidade(localidade);
 			modelLogin.setUf(uf);
 			modelLogin.setNumero(numero);
-			
-			// Pega o valor da tela que está formatada em dd/mm/yyyy e converte em texto em data na forma yyyy-mm-dd
-			modelLogin.setDataNascimento(Date.valueOf(new SimpleDateFormat("yyyy-mm-dd").format(new SimpleDateFormat("dd/mm/yyyy").parse(dataNascimento))));
-			
+
+			// Pega o valor da tela que está formatada em dd/mm/yyyy e converte em texto em
+			// data na forma yyyy-mm-dd
+			modelLogin.setDataNascimento(Date.valueOf(new SimpleDateFormat("yyyy-mm-dd")
+					.format(new SimpleDateFormat("dd/mm/yyyy").parse(dataNascimento))));
+
 			modelLogin.setRendamensal(Double.valueOf(rendaMensal));
 
 			/* Condição para capturar a foto */
