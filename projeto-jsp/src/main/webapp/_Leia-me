@@ -345,6 +345,11 @@ Lembrando que o request.setAttribute("dataInicial", dataInicial) imprime na tela
 group forms bootstrap -> https://getbootstrap.com/docs/4.0/components/forms/
 
 Vamos fazer imprimir todos os usuários, para isso vai ser preciso fazer uma condição na ServletUsuarioController.
+
+Para imprimir os telefones, teremos que criar uma lista de telefone no ModelLogin e setar essa lista no método 
+consultaUsuarioListRel() para que cada usuário possa carregar o seu telefone. Só não esquece de criar o objeto 
+DaoTelefoneRepository.
+
  
 
 

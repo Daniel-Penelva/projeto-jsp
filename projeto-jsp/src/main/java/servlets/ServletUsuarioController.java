@@ -215,8 +215,6 @@ public class ServletUsuarioController extends ServletGenericUtil {
 					request.setAttribute("listaUser", daoUsuarioRepository.consultaUsuarioListRel(super.getUserLogado(request)));
 				}
 				
-				System.out.println("imprimindo relatorio");
-				
 				// Para mostrar os dados na tela 
 				request.setAttribute("dataInicial", dataIncial);
 				request.setAttribute("dataFinal", dataFinal);

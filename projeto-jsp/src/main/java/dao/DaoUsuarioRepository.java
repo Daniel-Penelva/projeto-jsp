@@ -9,6 +9,7 @@ import java.util.List;
 
 import connection.SingleConnectionBanco;
 import model.ModelLogin;
+import model.ModelTelefone;
 
 public class DaoUsuarioRepository {
 
@@ -115,7 +116,8 @@ public class DaoUsuarioRepository {
 
 		List<ModelLogin> retorno = new ArrayList<ModelLogin>();
 
-		String sql = "select * from model_login where useradmin is false and usuario_id = " + userLogado + " order by nome offset "+offset+" limit 5";
+		String sql = "select * from model_login where useradmin is false and usuario_id = " + userLogado
+				+ " order by nome offset " + offset + " limit 5";
 
 		PreparedStatement prepararSql = connection.prepareStatement(sql);
 
@@ -142,7 +144,7 @@ public class DaoUsuarioRepository {
 		PreparedStatement prepararSql = connection.prepareStatement(sql);
 
 		ResultSet resultado = prepararSql.executeQuery();
-		
+
 		resultado.next();
 
 		Double cadastros = resultado.getDouble("total");
@@ -157,12 +159,11 @@ public class DaoUsuarioRepository {
 		if (resto > 0) {
 			pagina++;
 		}
-		
+
 		return pagina.intValue();
 	}
-	
-	
-	public List<ModelLogin> consultaUsuarioListRel(Long userLogado) throws SQLException {
+
+	public List<ModelLogin> consultaUsuarioListRel(Long userLogado) throws Exception {
 
 		List<ModelLogin> retorno = new ArrayList<ModelLogin>();
 
@@ -181,12 +182,14 @@ public class DaoUsuarioRepository {
 			modelLogin.setPerfil(resultado.getString("perfil"));
 			modelLogin.setSexo(resultado.getString("sexo"));
 
+			// Esse this vai chamar o método listFone() que está no próprio DaoUsuarioRepository
+			modelLogin.setTelefones(this.listFone(modelLogin.getId()));
+
 			retorno.add(modelLogin);
 		}
 
 		return retorno;
 	}
-	
 
 	/* Listar todos os usuários */
 	public List<ModelLogin> consultaUsuarioList(Long userLogado) throws SQLException {
@@ -213,14 +216,14 @@ public class DaoUsuarioRepository {
 
 		return retorno;
 	}
-	
-	
+
 	/* Listar usuário(s) por nome */
 	public List<ModelLogin> consultaUsuarioListOffSet(String nome, Long userLogado, int offset) throws Exception {
 
 		List<ModelLogin> retorno = new ArrayList<ModelLogin>();
 
-		String sql = "select * from model_login  where upper(nome) like upper(?) and useradmin is false and usuario_id = ? offset "+offset+" limit 5";
+		String sql = "select * from model_login  where upper(nome) like upper(?) and useradmin is false and usuario_id = ? offset "
+				+ offset + " limit 5";
 
 		PreparedStatement prepararSql = connection.prepareStatement(sql);
 
@@ -243,7 +246,6 @@ public class DaoUsuarioRepository {
 
 		return retorno;
 	}
-	
 
 	/* Listar usuário(s) por nome */
 	public List<ModelLogin> consultaUsuarioList(String nome, Long userLogado) throws SQLException {
@@ -273,7 +275,7 @@ public class DaoUsuarioRepository {
 
 		return retorno;
 	}
-	
+
 	/* Listar usuário(s) por nome */
 	public int consultaUsuarioListTotalPaginaPaginacao(String nome, Long userLogado) throws SQLException {
 
@@ -300,7 +302,7 @@ public class DaoUsuarioRepository {
 		if (resto > 0) {
 			pagina++;
 		}
-		
+
 		return pagina.intValue();
 	}
 
@@ -412,20 +414,20 @@ public class DaoUsuarioRepository {
 
 		return modelLogin;
 	}
-	
+
 	public ModelLogin consultarUsuarioId(Long id) throws SQLException {
 
-ModelLogin modelLogin = new ModelLogin();
-		
+		ModelLogin modelLogin = new ModelLogin();
+
 		String sql = "select * from model_login where id = ? and useradmin is false";
-		
+
 		PreparedStatement statement = connection.prepareStatement(sql);
 		statement.setLong(1, id);
-		
-		ResultSet resutlado =  statement.executeQuery();
-		
-		while (resutlado.next()) /*Se tem resultado*/ {
-			
+
+		ResultSet resutlado = statement.executeQuery();
+
+		while (resutlado.next()) /* Se tem resultado */ {
+
 			modelLogin.setId(resutlado.getLong("id"));
 			modelLogin.setEmail(resutlado.getString("email"));
 			modelLogin.setLogin(resutlado.getString("login"));
@@ -444,8 +446,7 @@ ModelLogin modelLogin = new ModelLogin();
 			modelLogin.setDataNascimento(resutlado.getDate("datanascimento"));
 			modelLogin.setRendamensal(resutlado.getDouble("rendamensal"));
 		}
-		
-		
+
 		return modelLogin;
 	}
 
@@ -521,6 +522,32 @@ ModelLogin modelLogin = new ModelLogin();
 
 		prepararSql.executeUpdate();
 		connection.commit();
+	}
+
+	public List<ModelTelefone> listFone(Long idUserPai) throws Exception {
+
+		List<ModelTelefone> retorno = new ArrayList<ModelTelefone>();
+
+		String sql = "select * from telefone where usuario_pai_id = ?";
+		PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+		preparedStatement.setLong(1, idUserPai);
+
+		ResultSet rs = preparedStatement.executeQuery();
+
+		while (rs.next()) {
+
+			ModelTelefone modelTelefone = new ModelTelefone();
+
+			modelTelefone.setId(rs.getLong("id"));
+			modelTelefone.setNumero(rs.getString("numero"));
+			modelTelefone.setUsuario_cad_id(this.consultarUsuarioId(rs.getLong("usuario_cad_id")));
+			modelTelefone.setUsuario_pai_id(this.consultarUsuarioId(rs.getLong("usuario_pai_id")));
+
+			retorno.add(modelTelefone);
+		}
+
+		return retorno;
 	}
 
 }
