@@ -343,6 +343,8 @@ Lembrando que o request.setAttribute("dataInicial", dataInicial) imprime na tela
 
 
 group forms bootstrap -> https://getbootstrap.com/docs/4.0/components/forms/
+
+Vamos fazer imprimir todos os usuários, para isso vai ser preciso fazer uma condição na ServletUsuarioController.
  
 
 

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -45,26 +46,52 @@
 														<form class="form-material"
 															action="<%=request.getContextPath()%>/ServletUsuarioController"
 															method="get" id="formUser">
-															
-															<input type="hidden" name="acao" value="imprimirRelatorioUser">
+
+															<input type="hidden" name="acao"
+																value="imprimirRelatorioUser">
 
 															<div class="form-row align-items-center">
 																<div class="col-sm-3 my-1">
-																	<label class="sr-only" for="dataInicial">Data Inicial</label>
-																	<input value="${dataInicial}" type="text" class="form-control" id="dataInicial" name="dataInicial">
+																	<label class="sr-only" for="dataInicial">Data
+																		Inicial</label> <input value="${dataInicial}" type="text"
+																		class="form-control" id="dataInicial"
+																		name="dataInicial">
 																</div>
-																
+
 																<div class="col-sm-3 my-1">
-																	<label class="sr-only" for="dataFinal">Data Final</label>
-																		<input value="${dataFinal}" type="text" class="form-control" id="dataFinal" name="dataFinal">
+																	<label class="sr-only" for="dataFinal">Data
+																		Final</label> <input value="${dataFinal}" type="text"
+																		class="form-control" id="dataFinal" name="dataFinal">
 																</div>
-																
+
 																<div class="col-auto">
-																	<button type="submit" class="btn btn-primary mb-2">Imprimir Relatório</button>
+																	<button type="submit" class="btn btn-primary mb-2">Imprimir
+																		Relatório</button>
 																</div>
 															</div>
 
 														</form>
+
+														<div style="height: 300px; overflow: scroll">
+															<table class="table table-hover"
+																id="tabelaresultadosview">
+																<thead>
+																	<tr>
+																		<th scope="col">ID</th>
+																		<th scope="col">Nome</th>
+																	</tr>
+																</thead>
+																<tbody>
+																	<c:forEach items="${listaUser}" var="ml">
+																		<tr>
+																			<td><c:out value="${ml.id}"></c:out></td>
+																			<td><c:out value="${ml.nome}"></c:out></td>
+																		</tr>
+																	</c:forEach>
+																</tbody>
+															</table>
+														</div>
+
 													</div>
 												</div>
 											</div>
@@ -83,39 +110,57 @@
 
 	<!-- Required Jquery -->
 	<jsp:include page="javascriptfile.jsp"></jsp:include>
-	
+
 	<script type="text/javascript">
-	
-	/* Calendário do JQuery - traduzir o calendário */
-	$( function() {
-	  
-	  $("#dataInicial").datepicker({
-		    dateFormat: 'dd/mm/yy',
-		    dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
-		    dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
-		    dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
-		    monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
-		    monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
-		    nextText: 'Próximo',
-		    prevText: 'Anterior'
+		/* Calendário do JQuery - traduzir o calendário */
+		$(function() {
+
+			$("#dataInicial")
+					.datepicker(
+							{
+								dateFormat : 'dd/mm/yy',
+								dayNames : [ 'Domingo', 'Segunda', 'Terça',
+										'Quarta', 'Quinta', 'Sexta', 'Sábado' ],
+								dayNamesMin : [ 'D', 'S', 'T', 'Q', 'Q', 'S',
+										'S', 'D' ],
+								dayNamesShort : [ 'Dom', 'Seg', 'Ter', 'Qua',
+										'Qui', 'Sex', 'Sáb', 'Dom' ],
+								monthNames : [ 'Janeiro', 'Fevereiro', 'Março',
+										'Abril', 'Maio', 'Junho', 'Julho',
+										'Agosto', 'Setembro', 'Outubro',
+										'Novembro', 'Dezembro' ],
+								monthNamesShort : [ 'Jan', 'Fev', 'Mar', 'Abr',
+										'Mai', 'Jun', 'Jul', 'Ago', 'Set',
+										'Out', 'Nov', 'Dez' ],
+								nextText : 'Próximo',
+								prevText : 'Anterior'
+							});
 		});
-} );
-	
-	/* Calendário do JQuery - traduzir o calendário */
-	$( function() {
-	  
-	  $("#dataFinal").datepicker({
-		    dateFormat: 'dd/mm/yy',
-		    dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
-		    dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
-		    dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
-		    monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
-		    monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
-		    nextText: 'Próximo',
-		    prevText: 'Anterior'
+
+		/* Calendário do JQuery - traduzir o calendário */
+		$(function() {
+
+			$("#dataFinal")
+					.datepicker(
+							{
+								dateFormat : 'dd/mm/yy',
+								dayNames : [ 'Domingo', 'Segunda', 'Terça',
+										'Quarta', 'Quinta', 'Sexta', 'Sábado' ],
+								dayNamesMin : [ 'D', 'S', 'T', 'Q', 'Q', 'S',
+										'S', 'D' ],
+								dayNamesShort : [ 'Dom', 'Seg', 'Ter', 'Qua',
+										'Qui', 'Sex', 'Sáb', 'Dom' ],
+								monthNames : [ 'Janeiro', 'Fevereiro', 'Março',
+										'Abril', 'Maio', 'Junho', 'Julho',
+										'Agosto', 'Setembro', 'Outubro',
+										'Novembro', 'Dezembro' ],
+								monthNamesShort : [ 'Jan', 'Fev', 'Mar', 'Abr',
+										'Mai', 'Jun', 'Jul', 'Ago', 'Set',
+										'Out', 'Nov', 'Dez' ],
+								nextText : 'Próximo',
+								prevText : 'Anterior'
+							});
 		});
-} );
-	
 	</script>
 </body>
 

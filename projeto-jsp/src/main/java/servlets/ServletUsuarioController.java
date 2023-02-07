@@ -210,6 +210,11 @@ public class ServletUsuarioController extends ServletGenericUtil {
 				String dataIncial = request.getParameter("dataInicial");
 				String dataFinal = request.getParameter("dataFinal");
 				
+				// Se não for preenchido as datas irá gerar todos os usuários
+				if(dataIncial == null || dataIncial.isEmpty() && dataFinal == null || dataFinal.isEmpty()) {
+					request.setAttribute("listaUser", daoUsuarioRepository.consultaUsuarioListRel(super.getUserLogado(request)));
+				}
+				
 				System.out.println("imprimindo relatorio");
 				
 				// Para mostrar os dados na tela 
