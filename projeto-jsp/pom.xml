@@ -40,6 +40,12 @@
 			<version>2.0.0</version>
 		</dependency>
 
+		<dependency>
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports</artifactId>
+			<version>6.20.0</version>
+		</dependency>
+
 	</dependencies>
 
 	<description>Servlets com JSP e JDBC com SQL e Java</description>

@@ -89,8 +89,6 @@ public class DaoTelefoneRepository {
 		
 		resultset.next();
 		return resultset.getBoolean("existe");
-		
-		
-		
+
 	}
 }
