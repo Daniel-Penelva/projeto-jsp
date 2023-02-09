@@ -370,6 +370,9 @@ Por exemplo:
 features/jre.win32.win32.x86_64.feature_11.0.8/adoptopenjdk_jre/bin
 SUBSTITUIR PELO ENDEREÇO DO JAVA INSTALADO ATÉ A PASTA bin:
  C:\Program Files\Java\jdk-11.0.16.1\bin
+ 
+Vamos criar um pacote de relatório e dentro desse pacote vai ser colado o relatório criado no JasperReport Studio. 
+Ou seja, o relátorio sempre acompanha o projeto.
 
 
 
