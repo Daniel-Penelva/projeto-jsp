@@ -374,6 +374,9 @@ SUBSTITUIR PELO ENDEREÇO DO JAVA INSTALADO ATÉ A PASTA bin:
 Vamos criar um pacote de relatório e dentro desse pacote vai ser colado o relatório criado no JasperReport Studio. 
 Ou seja, o relátorio sempre acompanha o projeto.
 
+A próxima etapa, é criar uma classe para imprimir o relatório em pdf. Ou seja, o arquivo rel-user-jsp.jasper vai ser 
+compilado onde vai ser passado a lista de dados já filtrada pelo sql. E esse resultado vai ser gerado em pdf.
+
 
 
 
