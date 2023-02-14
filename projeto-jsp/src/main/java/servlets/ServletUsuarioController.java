@@ -19,6 +19,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import model.ModelLogin;
+import util.ReportUtil;
 
 @MultipartConfig
 public class ServletUsuarioController extends ServletGenericUtil {
@@ -209,22 +210,47 @@ public class ServletUsuarioController extends ServletGenericUtil {
 
 				String dataIncial = request.getParameter("dataInicial");
 				String dataFinal = request.getParameter("dataFinal");
-				
+
 				// Se não for preenchido as datas irá gerar todos os usuários
-				if(dataIncial == null || dataIncial.isEmpty() && dataFinal == null || dataFinal.isEmpty()) {
-					request.setAttribute("listaUser", daoUsuarioRepository.consultaUsuarioListRel(super.getUserLogado(request)));
-				}else {
-					request.setAttribute("listaUser", daoUsuarioRepository.consultaUsuarioListRel(super.getUserLogado(request), dataIncial, dataFinal));
+				if (dataIncial == null || dataIncial.isEmpty() && dataFinal == null || dataFinal.isEmpty()) {
+					request.setAttribute("listaUser",
+							daoUsuarioRepository.consultaUsuarioListRel(super.getUserLogado(request)));
+				} else {
+					request.setAttribute("listaUser", daoUsuarioRepository
+							.consultaUsuarioListRel(super.getUserLogado(request), dataIncial, dataFinal));
 				}
-				
-				// Para mostrar os dados na tela 
+
+				// Para mostrar os dados na tela
 				request.setAttribute("dataInicial", dataIncial);
 				request.setAttribute("dataFinal", dataFinal);
-				
+
 				// Para rediresionar para a página reluser
 				request.getRequestDispatcher("principal/reluser.jsp").forward(request, response);
-			}
-			else {
+
+			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("imprimirRelatorioPDF")) {
+
+				String dataIncial = request.getParameter("dataInicial");
+				String dataFinal = request.getParameter("dataFinal");
+
+				List<ModelLogin> modelLogins = null;
+
+				// Se não for preenchido as datas irá gerar todos os usuários
+				if (dataIncial == null || dataIncial.isEmpty() && dataFinal == null || dataFinal.isEmpty()) {
+
+					modelLogins = daoUsuarioRepository.consultaUsuarioListRel(super.getUserLogado(request));
+
+				} else {
+
+					modelLogins = daoUsuarioRepository.consultaUsuarioListRel(super.getUserLogado(request), dataIncial,
+							dataFinal);
+				}
+
+				byte[] relatorio = new ReportUtil().geraRelatorioPDF(modelLogins, "rel-user-jsp", request.getServletContext());
+
+				response.setHeader("Content-Disposition", "attachment;filename=arquivo.pdf");
+				response.getOutputStream().write(relatorio);
+
+			} else {
 
 				// Criando lista de usuários buscando dados do BD
 				List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList(super.getUserLogado(request));

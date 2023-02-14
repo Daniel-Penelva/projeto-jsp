@@ -183,6 +183,7 @@ public class DaoUsuarioRepository {
 			modelLogin.setNome(resultado.getString("nome"));
 			modelLogin.setPerfil(resultado.getString("perfil"));
 			modelLogin.setSexo(resultado.getString("sexo"));
+			modelLogin.setDataNascimento(resultado.getDate("datanascimento"));
 
 			// Esse this vai chamar o método listFone() que está no próprio DaoUsuarioRepository
 			modelLogin.setTelefones(this.listFone(modelLogin.getId()));
@@ -213,6 +214,7 @@ public class DaoUsuarioRepository {
 			modelLogin.setNome(resultado.getString("nome"));
 			modelLogin.setPerfil(resultado.getString("perfil"));
 			modelLogin.setSexo(resultado.getString("sexo"));
+			modelLogin.setDataNascimento(resultado.getDate("datanascimento"));
 
 			// Esse this vai chamar o método listFone() que está no próprio DaoUsuarioRepository
 			modelLogin.setTelefones(this.listFone(modelLogin.getId()));
