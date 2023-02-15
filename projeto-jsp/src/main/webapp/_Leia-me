@@ -377,6 +377,21 @@ Ou seja, o relátorio sempre acompanha o projeto.
 A próxima etapa, é criar uma classe para imprimir o relatório em pdf. Ou seja, o arquivo rel-user-jsp.jasper vai ser 
 compilado onde vai ser passado a lista de dados já filtrada pelo sql. E esse resultado vai ser gerado em pdf.
 
+---------------------------------------------
+
+Vamos usar o chartjs para criar grafico que vai representar o salário dos usuários.
+Site: https://www.chartjs.org
+
+Startizar o chartjs: https://www.chartjs.org/docs/latest/getting-started/
+A tag abaixo que startiza o chartjs:
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+A tag abaixo vai montar o grafico 
+<canvas id="myChart"></canvas>
+
+Informativo: No arquivo 'relusergrafico' na função gerar gráfico, as labels são os tipos de usuários (admin, secretaria, 
+analista), a data representa o salário (é um array).
+
 
 
 
