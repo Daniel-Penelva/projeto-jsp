@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import bean.BeanGraficoSalarioUser;
 import connection.SingleConnectionBanco;
 import model.ModelLogin;
 import model.ModelTelefone;
@@ -19,6 +20,42 @@ public class DaoUsuarioRepository {
 
 	public DaoUsuarioRepository() {
 		connection = SingleConnectionBanco.getConnection();
+	}
+
+	public BeanGraficoSalarioUser montarGraficoMediaSalario(Long userLogado) throws Exception {
+		String sql = "select avg(rendamensal) as media_salarial, perfil from model_login where usuario_id = ? group by perfil";
+		PreparedStatement prepararSql = connection.prepareStatement(sql);
+		prepararSql.setLong(1, userLogado);
+
+		ResultSet resultSet = prepararSql.executeQuery();
+
+		/* Declarando a lista de perfil e salario */
+		List<String> perfils = new ArrayList<String>();
+		List<Double> salarios = new ArrayList<Double>();
+		
+		BeanGraficoSalarioUser bgsu = new BeanGraficoSalarioUser();
+
+		// Vai capturar as médias dos perfis de usuários, no caso, admin, secretária e
+		// auxiliar
+		while (resultSet.next()) {
+			Double media_salarial = resultSet.getDouble("media_salarial");
+			String perfil = resultSet.getString("perfil");
+
+			/**
+			 * Agora, temos que separar esses perfis de usuários que deverão estar na mesma
+			 * sequencia que está na função gerarGrafico() do arquivo @relusergrafico.jsp
+			 * Logo faremos uma lista do tipo String de perfil e uma lista do tipo Double
+			 * para os salários.
+			 */
+			
+			perfils.add(perfil);
+			salarios.add(media_salarial);
+		}
+		
+		bgsu.setPerfils(perfils);
+		bgsu.setSalarios(salarios);
+		
+		return bgsu;
 	}
 
 	/* Gravar usuário */
@@ -185,7 +222,8 @@ public class DaoUsuarioRepository {
 			modelLogin.setSexo(resultado.getString("sexo"));
 			modelLogin.setDataNascimento(resultado.getDate("datanascimento"));
 
-			// Esse this vai chamar o método listFone() que está no próprio DaoUsuarioRepository
+			// Esse this vai chamar o método listFone() que está no próprio
+			// DaoUsuarioRepository
 			modelLogin.setTelefones(this.listFone(modelLogin.getId()));
 
 			retorno.add(modelLogin);
@@ -193,16 +231,20 @@ public class DaoUsuarioRepository {
 
 		return retorno;
 	}
-	
-	public List<ModelLogin> consultaUsuarioListRel(Long userLogado, String dataInicial, String dataFinal) throws Exception {
+
+	public List<ModelLogin> consultaUsuarioListRel(Long userLogado, String dataInicial, String dataFinal)
+			throws Exception {
 
 		List<ModelLogin> retorno = new ArrayList<ModelLogin>();
 
-		String sql = "select * from model_login where useradmin is false and usuario_id = " + userLogado + " and datanascimento >= ? and datanascimento <= ?";
+		String sql = "select * from model_login where useradmin is false and usuario_id = " + userLogado
+				+ " and datanascimento >= ? and datanascimento <= ?";
 
 		PreparedStatement prepararSql = connection.prepareStatement(sql);
-		prepararSql.setDate(1, Date.valueOf(new SimpleDateFormat("yyyy-mm-dd").format(new SimpleDateFormat("dd/mm/yyyy").parse(dataInicial))));
-		prepararSql.setDate(2, Date.valueOf(new SimpleDateFormat("yyyy-mm-dd").format(new SimpleDateFormat("dd/mm/yyyy").parse(dataFinal))));
+		prepararSql.setDate(1, Date.valueOf(
+				new SimpleDateFormat("yyyy-mm-dd").format(new SimpleDateFormat("dd/mm/yyyy").parse(dataInicial))));
+		prepararSql.setDate(2, Date.valueOf(
+				new SimpleDateFormat("yyyy-mm-dd").format(new SimpleDateFormat("dd/mm/yyyy").parse(dataFinal))));
 
 		ResultSet resultado = prepararSql.executeQuery();
 
@@ -216,7 +258,8 @@ public class DaoUsuarioRepository {
 			modelLogin.setSexo(resultado.getString("sexo"));
 			modelLogin.setDataNascimento(resultado.getDate("datanascimento"));
 
-			// Esse this vai chamar o método listFone() que está no próprio DaoUsuarioRepository
+			// Esse this vai chamar o método listFone() que está no próprio
+			// DaoUsuarioRepository
 			modelLogin.setTelefones(this.listFone(modelLogin.getId()));
 
 			retorno.add(modelLogin);
@@ -224,7 +267,6 @@ public class DaoUsuarioRepository {
 
 		return retorno;
 	}
-	
 
 	/* Listar todos os usuários */
 	public List<ModelLogin> consultaUsuarioList(Long userLogado) throws SQLException {
