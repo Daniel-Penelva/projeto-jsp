@@ -13,6 +13,7 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import bean.BeanGraficoSalarioUser;
 import dao.DaoUsuarioRepository;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -117,8 +118,10 @@ public class ServletUsuarioController extends ServletGenericUtil {
 				List<ModelLogin> dadosJsonUser = daoUsuarioRepository.consultaUsuarioListOffSet(nomeBusca,
 						super.getUserLogado(request), Integer.parseInt(pagina));
 
+				// Criar um objeto mapper
 				ObjectMapper mapper = new ObjectMapper();
 
+				// Converter em Json
 				String json = mapper.writeValueAsString(dadosJsonUser);
 
 				/*
@@ -129,7 +132,7 @@ public class ServletUsuarioController extends ServletGenericUtil {
 				response.addHeader("totalPagina", "" + daoUsuarioRepository
 						.consultaUsuarioListTotalPaginaPaginacao(nomeBusca, super.getUserLogado(request)));
 
-				/* retorna a lista json de usuario */
+				/* retorna a lista json de usuario na tela */
 				response.getWriter().write(json);
 
 			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("buscarEditar")) {
@@ -239,11 +242,9 @@ public class ServletUsuarioController extends ServletGenericUtil {
 
 				// Se não for preenchido as datas irá gerar todos os usuários
 				if (dataIncial == null || dataIncial.isEmpty() && dataFinal == null || dataFinal.isEmpty()) {
-
 					modelLogins = daoUsuarioRepository.consultaUsuarioListRel(super.getUserLogado(request));
 
 				} else {
-
 					modelLogins = daoUsuarioRepository.consultaUsuarioListRel(super.getUserLogado(request), dataIncial,
 							dataFinal);
 				}
@@ -267,6 +268,31 @@ public class ServletUsuarioController extends ServletGenericUtil {
 
 				response.setHeader("Content-Disposition", "attachment;filename=arquivo." + extensal);
 				response.getOutputStream().write(relatorio);
+
+			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("graficoSalario")) {
+
+				String dataIncial = request.getParameter("dataInicial");
+				String dataFinal = request.getParameter("dataFinal");
+
+				// Se não for preenchido as datas irá gerar todos os usuários
+				if (dataIncial == null || dataIncial.isEmpty() && dataFinal == null || dataFinal.isEmpty()) {
+					
+					BeanGraficoSalarioUser beanGraficoSalarioUser = daoUsuarioRepository
+							.montarGraficoMediaSalario(super.getUserLogado(request));
+
+					// Criar um objeto mapper
+					ObjectMapper mapper = new ObjectMapper();
+
+					// Converter em Json
+					String json = mapper.writeValueAsString(beanGraficoSalarioUser);
+
+					// Este response vai ser jogado no response da função gerarGrafico do arquivo
+					// relusergrafico.jsp
+					response.getWriter().write(json);
+					
+				} else {
+					
+				}
 
 			} else {
 
