@@ -292,6 +292,14 @@ public class ServletUsuarioController extends ServletGenericUtil {
 					
 				} else {
 					
+					BeanGraficoSalarioUser beanGraficoSalarioUser = daoUsuarioRepository
+							.montarGraficoMediaSalario(super.getUserLogado(request), dataIncial, dataFinal);
+
+					ObjectMapper mapper = new ObjectMapper();
+
+					String json = mapper.writeValueAsString(beanGraficoSalarioUser);
+
+					response.getWriter().write(json);
 				}
 
 			} else {

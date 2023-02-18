@@ -101,6 +101,10 @@
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 	<script type="text/javascript">
+	
+	
+	    /* Criando o grafico - variável global*/
+		var myChart = new Chart(document.getElementById('myChart'));
 
 		/* Gerar gráfico de salário */
 		function gerarGrafico() {
@@ -118,11 +122,10 @@
 					
 					var json = JSON.parse(response);
 					
-					/*
-					alert(json.perfils);
-					alert(json.salarios);*/
+					/* Limpa o gráfico para que possa ser usado de novo */
+					myChart.destroy();
 					
-					var myChart = new Chart(document.getElementById('myChart'), {
+				    myChart = new Chart(document.getElementById('myChart'), {
 						type : 'line',
 						data : {
 							labels : json.perfils,

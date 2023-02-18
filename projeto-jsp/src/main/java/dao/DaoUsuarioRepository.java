@@ -22,8 +22,11 @@ public class DaoUsuarioRepository {
 		connection = SingleConnectionBanco.getConnection();
 	}
 
+	// Método para gerar o gráfico sem a manipulação das datas inicial e final
 	public BeanGraficoSalarioUser montarGraficoMediaSalario(Long userLogado) throws Exception {
+
 		String sql = "select avg(rendamensal) as media_salarial, perfil from model_login where usuario_id = ? group by perfil";
+		
 		PreparedStatement prepararSql = connection.prepareStatement(sql);
 		prepararSql.setLong(1, userLogado);
 
@@ -32,7 +35,7 @@ public class DaoUsuarioRepository {
 		/* Declarando a lista de perfil e salario */
 		List<String> perfils = new ArrayList<String>();
 		List<Double> salarios = new ArrayList<Double>();
-		
+
 		BeanGraficoSalarioUser bgsu = new BeanGraficoSalarioUser();
 
 		// Vai capturar as médias dos perfis de usuários, no caso, admin, secretária e
@@ -47,14 +50,55 @@ public class DaoUsuarioRepository {
 			 * Logo faremos uma lista do tipo String de perfil e uma lista do tipo Double
 			 * para os salários.
 			 */
-			
+
 			perfils.add(perfil);
 			salarios.add(media_salarial);
 		}
-		
+
 		bgsu.setPerfils(perfils);
 		bgsu.setSalarios(salarios);
+
+		return bgsu;
+	}
+
+	// Método para gerar relatório manipulando as datas inicial e final
+	public BeanGraficoSalarioUser montarGraficoMediaSalario(Long userLogado, String dataIncial, String dataFinal) throws Exception{
+
+		String sql = "select avg(rendamensal) as media_salarial, perfil from model_login where usuario_id = ? and datanascimento >= ? and datanascimento <= ? group by perfil";
 		
+		PreparedStatement prepararSql = connection.prepareStatement(sql);
+		prepararSql.setLong(1, userLogado);
+		prepararSql.setDate(2, Date.valueOf(new SimpleDateFormat("yyyy-mm-dd").format(new SimpleDateFormat("dd/mm/yyyy").parse(dataIncial))));
+		prepararSql.setDate(3, Date.valueOf(new SimpleDateFormat("yyyy-mm-dd").format(new SimpleDateFormat("dd/mm/yyyy").parse(dataFinal))));
+
+		ResultSet resultSet = prepararSql.executeQuery();
+
+		/* Declarando a lista de perfil e salario */
+		List<String> perfils = new ArrayList<String>();
+		List<Double> salarios = new ArrayList<Double>();
+
+		BeanGraficoSalarioUser bgsu = new BeanGraficoSalarioUser();
+
+		// Vai capturar as médias dos perfis de usuários, no caso, admin, secretária e
+		// auxiliar
+		while (resultSet.next()) {
+			Double media_salarial = resultSet.getDouble("media_salarial");
+			String perfil = resultSet.getString("perfil");
+
+			/**
+			 * Agora, temos que separar esses perfis de usuários que deverão estar na mesma
+			 * sequencia que está na função gerarGrafico() do arquivo @relusergrafico.jsp
+			 * Logo faremos uma lista do tipo String de perfil e uma lista do tipo Double
+			 * para os salários.
+			 */
+
+			perfils.add(perfil);
+			salarios.add(media_salarial);
+		}
+
+		bgsu.setPerfils(perfils);
+		bgsu.setSalarios(salarios);
+
 		return bgsu;
 	}
 
