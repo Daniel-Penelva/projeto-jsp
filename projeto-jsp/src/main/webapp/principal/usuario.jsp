@@ -366,11 +366,14 @@
 	/* formatando a saida correta da data  - primeiro captura o valor da data de nascimento */
 	var dataNascimento = $("#dataNascimento").val();
 	
-	/* criando um valor para o campo de data de nascimento */
-	var dateFormat = new Date(dataNascimento);
-	
-	/* passando para o formato brasileiro */
-	$("#dataNascimento").val(dateFormat.toLocaleDateString('pt-BR',{timeZone: 'UTC'}));
+	if(dataNascimento != null && dataNascimento != ''){
+		
+		/* criando um valor para o campo de data de nascimento */
+		var dateFormat = new Date(dataNascimento);
+		
+		/* passando para o formato brasileiro */
+		$("#dataNascimento").val(dateFormat.toLocaleDateString('pt-BR',{timeZone: 'UTC'}));
+	}
 	
 	$("#nome").focus();
 	
