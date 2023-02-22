@@ -407,6 +407,12 @@ pois não podem ser executados de novo. Logo, vai ter uma tabela para controlar 
 
 3º O dao vai ter que passar pelo filtro de logado, logo ele vai ser chamado pelo filterAutenticação.
 
+-----------------------------------------
+Foi instalado o Maven para gerar o WAR de implantação de servidor;
+Depois foi gerado o war de implantação de servidor:
+Endereço do war gerado: 
+C:\Users\d4nan\git\repository5\projeto-jsp\target\projeto-jsp-0.0.1-SNAPSHOT
+
 
 
 
