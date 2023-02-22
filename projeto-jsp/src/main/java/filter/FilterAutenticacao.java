@@ -1,5 +1,14 @@
 package filter;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.Scanner;
+
+import connection.SingleConnectionBanco;
+import dao.DaoVersionadorBanco;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.FilterConfig;
@@ -11,12 +20,6 @@ import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.SQLException;
-
-import connection.SingleConnectionBanco;
 
 /**
  * Intercepta todas as requisições que vierem do projeto ou mapeamento. O
@@ -113,6 +116,54 @@ public class FilterAutenticacao extends HttpFilter implements Filter {
 	 */
 	public void init(FilterConfig fConfig) throws ServletException {
 		connection = SingleConnectionBanco.getConnection();
+		
+		DaoVersionadorBanco daoVersionadorBanco = new DaoVersionadorBanco();
+		
+		// Pegando o caminho do arquivo sql
+		String caminhoPastaSQL = fConfig.getServletContext().getRealPath("versionadorbancosql") + File.separator;
+		
+		// Criando uma lista de arquivos sql
+		File[] filesSql = new File(caminhoPastaSQL).listFiles();
+		
+		try {
+			
+				// Percorrer cada sql para verificar se já foi executado no banco de dados
+				for(File file : filesSql) {
+					
+					boolean arquivojaRodado = daoVersionadorBanco.arquivoSqlRodado(file.getName());
+					
+					/* Se não foi rodado ainda entra nessa condição */
+					if(!arquivojaRodado) {
+						/* lê o conteúdo desse arquivo */
+						FileInputStream entradaArquivo = new FileInputStream(file);
+						
+						Scanner lerArquivo = new Scanner(entradaArquivo, "UTF-8");
+						
+						/* Para armazenar o sql */
+						StringBuilder sql = new StringBuilder();
+						
+						/*Enquando estiver dados vai lendo */
+						while(lerArquivo.hasNext()) {
+							sql.append(lerArquivo.nextLine());
+							sql.append("\n");
+						}
+						
+						connection.prepareStatement(sql.toString()).execute();
+						daoVersionadorBanco.gravaArquivoSqlRodado(file.getName());
+						
+						connection.commit();
+						lerArquivo.close();
+					}
+				}
+				
+		} catch (Exception e) {
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}
 	}
 
 }

@@ -392,6 +392,21 @@ A tag abaixo vai montar o grafico
 Informativo: No arquivo 'relusergrafico' na função gerar gráfico, as labels são os tipos de usuários (admin, secretaria, 
 analista), a data representa o salário (é um array).
 
+------------------------------------------
+
+Vamos criar um versionador de banco de dados para ajudar a gerenciar e a recuperar os objetos de forma mais rápida e 
+fácil. É como se fosse um Hibernate e um JPA atuando. O principal objetivo é manter sempre atualizado o sistema, garantir
+que as versões estejam de acordo para seu funcionamento.
+
+Etapas:
+
+1º Criar uma tabela de versionamento no banco de dados para poder gravar os arquivos sql que já foram executados, 
+pois não podem ser executados de novo. Logo, vai ter uma tabela para controlar esse versionamento de arquivos.
+
+2º Vai precisar ter um dao.
+
+3º O dao vai ter que passar pelo filtro de logado, logo ele vai ser chamado pelo filterAutenticação.
+
 
 
 
