@@ -416,15 +416,36 @@ Configurando o ambiente:
 2º Ir em variaveis de ambiente: variaveis de ambiente > novo > nome da variavel (MAVEN_HOME) > valor da variavel (é o endereço da pasta do maven no C:)
 3º Ir em Path > editar > novo > colocar: %MAVEN%\bin > ok
   
+  
 Para gerar o war de implantação de servidor:
 1º abra o prompt de comando cmd
 2º adicione a pasta - ex: cd C:\Users\d4nan\git\repository5\projeto-jsp
 3º insira o comando: mvn clean package.
 4º vai gerar automaticamente o war (vai gerar a msg BUILD SUCESS).
 
-Depoi é gerado o war de implantação de servidor:
+
+Depois é gerado o war de implantação de servidor:
 Endereço do war gerado: 
 C:\Users\d4nan\git\repository5\projeto-jsp\target\projeto-jsp-0.0.1-SNAPSHOT
+
+
+Implantando o projeto localmente no servidor apache Tomcat - sem precisar do eclipse para compilar o projeto
+
+OBS. O tomcat no eclipse NÃO vai estar startizado!!!
+
+Configurando a variavel de ambiente:
+2º Ir em variaveis de ambiente: variaveis de ambiente > novo > nome da variavel (CATALINA_HOME) > valor da variavel (é o endereço da pasta do tomcat no C:)
+
+Você vai copiar o arquivo war gerado e vai entar na pasta do tomcat (C:\apache-tomcat-10.0.27) e vai procurar 
+a pasta webapps onde vc irá colar o arquivo war.
+
+Depois vc irá na pasta bin para startizar o servidor, basta clicar no arquivo "startup.bat" para iniciar o servidor, depois
+é só acessar o seu projeto normalmente. Para destartizar o servidor, basta clciar no arquivo "shutdown.bat" que irá 
+parar o servidor. 
+
+IMPORTANTE!!! Se for rodar o tomcat pelo eclipse de novo é preciso apagar o arquivo war que está na pasta webapps do tomcat.
+Porque se vc estiver fazendo atualizações do projeto pelo eclipse não vai capturar essas atualizações salvas, ele vai pegar 
+o projeto que vc gerou antes dessa última atualização.
 
 
 
