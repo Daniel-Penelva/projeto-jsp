@@ -447,6 +447,27 @@ IMPORTANTE!!! Se for rodar o tomcat pelo eclipse de novo é preciso apagar o arq
 Porque se vc estiver fazendo atualizações do projeto pelo eclipse não vai capturar essas atualizações salvas, ele vai pegar 
 o projeto que vc gerou antes dessa última atualização.
 
+----------------------------------------
+Aumentando a memória para o servidor tomcat
+
+Gerar um arquivo com extensão '.sh' que é de 'shell Script' (pode usar o notepad++) e nomear de 'setenv'. 
+OBS.Salva em texto depois muda a extensão para '.sh'.
+
+Nesse arquivo vai ser colocado:
+1º O uso da memória a ser consumida;
+2º O uso da memória máxima a ser consumida;
+3º A permissão de uso de memória.
+OBS. Nessa ordem - exemplificando:
+
+export CATALINA_OPTS="$CATALINA_OPTS -Xms1512m"
+export CATALINA_OPTS="$CATALINA_OPTS -Xmx3512m"
+export CATALINA_OPTS="$CATALINA_OPTS -XX:MaxPermSize=1512"
+
+Esse arquivo vai ser salvo dentro da pasta do tomcat, no caso, na pasta bin, dessa maneira o tomcat saberá ao ler esses 
+parâmetros consumo de memória que quer ser usado.
+
+Basta dar um 'startup.bat' para iniciar o servidor. Se ocorer algum erro foi em algum do parâmetros que escreveu errado.
+
 
 
 
