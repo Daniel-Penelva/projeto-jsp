@@ -468,6 +468,44 @@ parâmetros consumo de memória que quer ser usado.
 
 Basta dar um 'startup.bat' para iniciar o servidor. Se ocorer algum erro foi em algum do parâmetros que escreveu errado.
 
+--------------------------------------------
+Tomcat como serviço automático no Windows
+Ou seja, como deixar o seu tomcat já startizado automaticamente ao ligar ou reiniciar seu computador sem precisar que 
+você inicie o tomcat.
 
+Vamos acessar a pasta do tomcat e dentro dela a pasta bin e o arquivo 'service.bat' pelo prompt de comando CMD.
+Comandos:
 
+1º CMD 
+
+2º
+(Deixa apenas em C:\>pode usar o comando 'cd..' duas vezes.)
+C:\>
+
+3º 
+(cd <endereço_da _pasta_tomcat>)
+C:\>cd C:\apache-tomcat-10.0.27 
+
+3º 
+(acesse a pasta bin - cd <pasta_bin>)
+C:\apache-tomcat-10.0.27>cd bin
+
+4º 
+(acesse o arquivo service.bat e use o comando install)
+C:\apache-tomcat-10.0.27\bin>service.bat install
+
+OBS. Ele vai instalar o serviço do tomcat e vai gerar um nome desse serviço, Installing the service 'Tomcat10'
+
+5º 
+(Ainda no prompt CMD, tem que executar o tomcat10w.exe)
+C:\apache-tomcat-10.0.27\bin>tomcat10w.exe
+
+OBS. Vai abrir uma janela com as propriedades do tomcat. Em 'Startup type' escolhe a opção 'Automatic'. 
+Depois em 'Start' para startizar ele. A partir daí, já pode acessar o seu projeto para vê se está rodando pelo tomcat.
+
+OBS. Se vc ir na aba de pesquisa do seu windows e digitar "Serviços (local)" verá o apache tomcat em execução.
+
+6º PARA REMOVER O SERVIÇO BASTA FAZER:
+C:\apache-tomcat-10.0.27\bin>service.bat remove
+Basta dar um 'sim' que irá remover a startização automatica do tomcat.
 
