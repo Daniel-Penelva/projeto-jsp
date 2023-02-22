@@ -409,7 +409,20 @@ pois não podem ser executados de novo. Logo, vai ter uma tabela para controlar 
 
 -----------------------------------------
 Foi instalado o Maven para gerar o WAR de implantação de servidor;
-Depois foi gerado o war de implantação de servidor:
+Site: https://maven.apache.org/download.cgi
+
+Configurando o ambiente:
+1º Extrair a pasta do maven baixado no C:
+2º Ir em variaveis de ambiente: variaveis de ambiente > novo > nome da variavel (MAVEN_HOME) > valor da variavel (é o endereço da pasta do maven no C:)
+3º Ir em Path > editar > novo > colocar: %MAVEN%\bin > ok
+  
+Para gerar o war de implantação de servidor:
+1º abra o prompt de comando cmd
+2º adicione a pasta - ex: cd C:\Users\d4nan\git\repository5\projeto-jsp
+3º insira o comando: mvn clean package
+4º vai gerar automaticamente o war (vai gerar a msg BUILD SUCESS)
+
+Depoi é gerado o war de implantação de servidor:
 Endereço do war gerado: 
 C:\Users\d4nan\git\repository5\projeto-jsp\target\projeto-jsp-0.0.1-SNAPSHOT
 
