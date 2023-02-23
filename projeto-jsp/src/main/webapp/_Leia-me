@@ -509,3 +509,41 @@ OBS. Se vc ir na aba de pesquisa do seu windows e digitar "Serviços (local)" ve
 C:\apache-tomcat-10.0.27\bin>service.bat remove
 Basta dar um 'sim' que irá remover a startização automatica do tomcat.
 
+----------------------------------------
+POSTGRESQL - Melhorando a performance do PostgreSQL
+
+Vai na pasta de instalação do postgresql e entre na pasta 'data' e abra o arquivo 'postgresql.conf' com o notepad++.
+
+Vamos altera as seguintes propriedades:
+
+1º
+max_connections = 4000
+[Configurado para o atual número de conexões simultâneas que você espera precisar.]
+
+
+2º
+shared_buffers = 4000MB
+[Define a quantidade de memória que o servidor de banco de dados usa para buffers de memória compartilhada. Estes são 
+compartilhados entre os processos de back-end, como o nome sugere.]
+
+
+3º
+work_mem = 500MB
+[Chamado de sort_mem, cobre ordenações, agregações e mais algumas operações.
+Sendo alocada para cada operação (uma a várias veses por consulta).
+Esta configuração está coloca um teto na quantidade de memória que uma única operação ocupar antes de ser forçada para o disco.
+Este deve ser calculado dividindo a RAM disponível (depois das aplicações e do shared_buffers) pela expectativa de máximo
+de consultas concorrentes vezes o número de memória utilizada por conexão]
+
+
+4º
+maintenance_work_mem = 2000MB
+[Especifica a quantidade máxima de memória que pode ser utilizada pelas operações de manutenção, como VACUUM, 
+CREATE INDEX e ALTER TABLE ADD FOREIGN KEY]
+
+
+5º
+max_stack_depth = 1MB
+[Especifica quantidade de memoria para rodas funções complexas execução do servidor.]
+
+6º Por fim vai na aba de pesquisa do windows e pesquise por "serviços". Procure o PostgreSql e reinicie o serviço.
